@@ -10,6 +10,7 @@ interface PostInput{
     content:string;
     avatar_url:string | null;
     community_id:number | null;
+    user_id: string | null;
 }
 
 const createPost = async (post:PostInput, imageFile: File)=>{
@@ -51,7 +52,8 @@ const createPost = async (post:PostInput, imageFile: File)=>{
           post:{title,
                 content,
                 avatar_url: user?.user_metadata.avatar_url || null,
-                community_id: communityId
+                community_id: communityId,
+                user_id: user?.id || null,
               },
                 imageFile:selectedFile});
         else return;

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../supabase-client";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 export interface Community {
   id: number;
@@ -18,6 +18,9 @@ export const fetchCommunities = async (): Promise<Community[]> => {
 };
 
 export const CommunityList = () => {
+
+  const navigate = useNavigate();
+
   const { data, error, isLoading } = useQuery<Community[], Error>({
     queryKey: ["Communities"],
     queryFn: fetchCommunities,
@@ -31,20 +34,31 @@ export const CommunityList = () => {
     return <div> Error: {error.message}</div>;
   }
 
+  async function handleDeleteCommunity(communityId:number): Promise<void> {
+    const { error } = await supabase.from("Communities").delete().eq("id", communityId);
+    if (error) throw new Error(error.message);
+    navigate("/");
+  }
+
   return (
    <div className="max-w-5xl mx-auto space-y-4">
       {data?.map((community) => (
         <div
           key={community.id}
-          className="border border-white/10 p-4 rounded hover:-translate-y-1 transition transform"
+          className="border border-gray-400 shadow-2xs hover:shadow-md shadow-neutral-400 py-2 lg:py-4 px-2 lg:px-7 rounded-xl lg:rounded-2xl hover:-translate-y-1 transition transform"
         >
-          <Link
-            to={`/communities/${community.id}`}
-            className="text-2xl font-bold text-purple-500 hover:underline"
-          >
-            {community.name}
-          </Link>
-          <p className="text-gray-400 mt-2">{community.description}</p>
+          <div className="flex justify-between items-center">
+            <div>
+              <Link
+                to={`/communities/${community.id}`}
+                className="text-lg lg:text-2xl font-bold text-purple-500 hover:underline"
+              >
+                {community.name}
+              </Link>      
+              <p className="text-gray-400 mt-2 text-xs lg:text-sm">{community.description}</p>
+            </div>
+            <button onClick={()=>handleDeleteCommunity(community.id)} className="text-xs lg:text-sm bg-gray-400 hover:bg-red-600 text-white rounded-md py-1 px-3 cursor-pointer">Delete </button>
+          </div>
         </div>
       ))}
     </div>

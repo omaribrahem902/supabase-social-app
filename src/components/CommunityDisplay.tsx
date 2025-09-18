@@ -40,7 +40,7 @@ export const CommunityDisplay = ({communityId}:Props)=>{
 
     return(
     <div>
-      <h2 className="text-6xl font-bold mb-6 text-center bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+      <h2 className="text-2xl lg:text-6xl font-bold mb-6 text-center bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
         {data && data.length > 0 && data[0].Communities.name} Community Posts
       </h2>
 
