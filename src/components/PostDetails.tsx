@@ -5,6 +5,8 @@ import { LikeButton } from "../components/LikeButton";
 import { CommentSection } from "./CommentSection";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router";
+import { DeleteModal } from "./DeleteModal";
+import { useState } from "react";
 
 interface Props {
     postId: number;
@@ -22,6 +24,7 @@ export const PostDetails = ({postId}:Props)=>{
 
   const {user} =useAuth();
   const navigate = useNavigate();
+  const [open, setOpen] = useState(false);
 
   const { data, error, isLoading } = useQuery<Post, Error>({
       queryKey: ["post",postId],
@@ -43,6 +46,7 @@ export const PostDetails = ({postId}:Props)=>{
      if (error) throw new Error(error.message);
      navigate("/");
   }
+
 }
 
     return(
@@ -64,7 +68,23 @@ export const PostDetails = ({postId}:Props)=>{
   
         <LikeButton postId={postId} />
         <div className="flex justify-start lg:justify-center">
-          <button onClick={handleDeletePost} className="bg-red-600 text-white rounded-md py-1 px-3 cursor-pointer">Delete Post</button>
+        <button
+              onClick={() => {
+                setOpen(true);
+              }}
+              className="bg-red-600 text-white rounded-md py-1 px-3 cursor-pointer"
+            >
+              Delete
+            </button>
+        </div>
+        <div className="flex justify-start lg:justify-center">
+          <DeleteModal
+            onConfirm={()=>handleDeletePost()}
+            open={open}
+            setOpen={setOpen}
+            title="Are you sure you want to delete this post?"
+            description="This action cannot be undone. This will permanently delete the post and all its comments."
+          />
         </div>
         <CommentSection postId={postId} />
       </div>

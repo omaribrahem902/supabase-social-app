@@ -1,8 +1,8 @@
 import { useState, type FormEvent } from "react"
 import { supabase } from "../supabase-client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router";
 import { useAuth } from "../context/AuthContext";
+import  toast,{ Toaster } from "react-hot-toast";
 
 interface CommunityInput{
     name:string;
@@ -21,20 +21,37 @@ export const CreateCommunity = ()=>{
    const [name, setName] = useState<string>("");
    const [description, setDescription] = useState<string>("");
    const {user} = useAuth();
-   const navigate = useNavigate();
    const queryClient = useQueryClient();
 
    const { mutate, isPending, isError } = useMutation({
     mutationFn: createCommunity,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["Communities"] });
-      navigate("/communities");
     },
   });
 
   const handleSubmit = (e:FormEvent) => {
     e.preventDefault();
-    mutate({ name,description,user_id: user?.id || null });
+    toast.promise(
+      new Promise((resolve, reject) => {
+        mutate(
+          {
+            name,
+            description,
+            user_id: user?.id || null,
+          },
+          {
+            onSuccess: () => resolve("done"),
+            onError: (err) => reject(err),
+          }
+        );
+      }),
+      {
+        loading: "Creating community...",
+        success: "Community created successfully",
+        error: "Error creating community",
+      }
+    );
   };
     return(
          <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-4">
@@ -68,10 +85,12 @@ export const CreateCommunity = ()=>{
       </div>
       <button
         type="submit"
-        className="bg-purple-500 text-white px-4 py-2 rounded cursor-pointer"
+        className="bg-purple-500 disabled:bg-purple-200 text-white px-4 py-2 rounded disabled:cursor-not-allowed cursor-pointer"
+        disabled={isPending}
       >
-        {isPending ? (<span className="loader"></span>) : "Create Community"}
+        Create Community
       </button>
+      <Toaster/>
       {isError && <p className="text-red-500">Error creating community.</p>}
     </form>
     )
