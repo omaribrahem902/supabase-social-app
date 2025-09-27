@@ -46,7 +46,7 @@ export function DeleteModal({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg w-full max-w-md p-6 relative"
+        className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg w-full max-w-xs lg:max-w-md p-6 relative"
       >
         {/* Close X */}
         <button
@@ -57,7 +57,7 @@ export function DeleteModal({
         </button>
 
         {/* Title + Description */}
-        <h2 className="text-lg font-semibold text-red-600">{title}</h2>
+        <h2 className="text-lg font-semibold text-red-600 mt-2">{title}</h2>
         <p className="text-sm text-gray-500 mt-2">{description}</p>
 
         {/* Buttons */}

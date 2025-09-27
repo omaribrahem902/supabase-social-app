@@ -1,7 +1,7 @@
 import { useState } from "react";
-import type { Comment } from "./CommentSection";
-import { useAuth } from "../context/AuthContext";
-import { supabase } from "../supabase-client";
+import type { Comment } from "../CommentSection";
+import { useAuth } from "../../context/AuthContext";
+import { supabase } from "../../supabase-client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface Props {
@@ -78,7 +78,7 @@ export const CommentItem = ({ comment, postId }: Props) => {
         <p className="text-gray-700">{comment.content}</p>
         <button
           onClick={() => setShowReply((prev) => !prev)}
-          className="text-blue-500 text-sm mt-1"
+          className="text-blue-500 hover:text-blue-600 text-sm mt-1 cursor-pointer"
         >
           {showReply ? "Cancel" : "Reply"}
         </button>
@@ -94,9 +94,10 @@ export const CommentItem = ({ comment, postId }: Props) => {
           />
           <button
             type="submit"
-            className="mt-1 bg-blue-500 text-white px-3 py-1 rounded"
+            disabled={isPending}
+            className="mt-1 bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded cursor-pointer"
           >
-            {isPending ? "Posting..." : "Post Reply"}
+            {isPending ? "Posting..." : "Reply"}
           </button>
           {isError && <p className="text-red-500">Error posting reply.</p>}
         </form>
@@ -105,6 +106,7 @@ export const CommentItem = ({ comment, postId }: Props) => {
       {comment.children && comment.children.length > 0 && (
         <div>
           <button
+          className="cursor-pointer"
             onClick={() => setIsCollapsed((prev) => !prev)}
             title={isCollapsed ? "Hide Replies" : "Show Replies"}
           >

@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from "react"
-import { supabase } from "../supabase-client";
+import { supabase } from "../../supabase-client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import  toast,{ Toaster } from "react-hot-toast";
 
 interface CommunityInput{

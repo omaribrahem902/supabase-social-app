@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "../supabase-client";
+import { supabase } from "../../supabase-client";
 import { Link, useNavigate } from "react-router";
-import { DeleteModal } from "./DeleteModal";
+import { DeleteModal } from "../DeleteModal";
 import { useState } from "react";
+import { CommunitySkeleton } from "../skeletons/CommunitySkeleton";
 
 export interface Community {
   id: number;
@@ -35,7 +36,13 @@ export const CommunityList = () => {
   const [open, setOpen] = useState(false);
 
   if (isLoading) {
-    return <div> Loading Communities...</div>;
+    return (
+      <div className="flex flex-col gap-3 justify-center">
+        {Array.from({ length: 3 }).map((_, i) => (
+          <CommunitySkeleton key={i} />
+        ))}
+      </div>
+    );
   }
 
   if (error) {
@@ -83,7 +90,6 @@ export const CommunityList = () => {
           </div>
         </div>
       ))}
-
       {/* Global Delete Modal */}
       {selectedCommunity && (
         <DeleteModal

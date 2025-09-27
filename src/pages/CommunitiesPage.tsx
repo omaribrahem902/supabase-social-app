@@ -1,4 +1,4 @@
-import { CommunityList } from "../components/CommunityList"
+import { CommunityList } from "../components/communities/CommunityList"
 
 export const CommunitiesPage = ()=>{
     return(

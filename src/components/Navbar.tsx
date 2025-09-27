@@ -50,10 +50,10 @@ export const Navbar = () => {
               <div className="flex gap-2 lg:gap-4 ">
                 {user.user_metadata.avatar_url &&<img className="rounded-full w-7 h-7" src={user.user_metadata.avatar_url} alt="avatar image" />}
                 <span className="flex items-center">{displayName}</span>
-                <button className="bg-red-600 rounded-md py-1 px-3 cursor-pointer" onClick={signOut}>SignOut</button>
+                <button className="bg-red-600 hover:bg-red-700 rounded-md py-1 px-3 cursor-pointer" onClick={signOut}>SignOut</button>
               </div>
             ):(
-              <button className="bg-green-600 rounded-md py-1 px-3 cursor-pointer" onClick={signInWithGitHub}>Sign In With Github</button>
+              <button className="bg-green-600 hover:bg-green-700 rounded-md py-1 px-3 cursor-pointer" onClick={signInWithGitHub}>Sign In With Github</button>
 
             )}
           </div>

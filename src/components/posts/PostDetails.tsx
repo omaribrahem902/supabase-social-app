@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import type { Post } from "./PostList";
-import { supabase } from "../supabase-client";
-import { LikeButton } from "../components/LikeButton";
-import { CommentSection } from "./CommentSection";
-import { useAuth } from "../context/AuthContext";
+import { supabase } from "../../supabase-client";
+import { LikeButton } from "../LikeButton";
+import { CommentSection } from "../comment/CommentSection";
+import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router";
-import { DeleteModal } from "./DeleteModal";
+import { DeleteModal } from "../DeleteModal";
 import { useState } from "react";
 
 interface Props {
@@ -32,7 +32,7 @@ export const PostDetails = ({postId}:Props)=>{
     });
   
     if (isLoading) {
-      return <div> Loading posts...</div>;
+      return <div> Loading post...</div>;
     }
   
     if (error) {
@@ -51,7 +51,7 @@ export const PostDetails = ({postId}:Props)=>{
 
     return(
         <div className="space-y-6 lg:mx-10">
-        <h2 className="text-2xl lg:text-6xl font-bold mb-8 text-center bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
+        <h2 className=" text-2xl lg:text-6xl font-bold py-4 m-0 text-center bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
           {data?.title}
         </h2>
         {data?.image_url && (
@@ -72,7 +72,7 @@ export const PostDetails = ({postId}:Props)=>{
               onClick={() => {
                 setOpen(true);
               }}
-              className="bg-red-600 text-white rounded-md py-1 px-3 cursor-pointer"
+              className="bg-red-600 hover:bg-red-700 text-white rounded-md py-1 px-3 cursor-pointer"
             >
               Delete
             </button>

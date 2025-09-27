@@ -1,9 +1,9 @@
-import '../index.css'
+import '../../index.css'
 import { useState, type ChangeEvent, type FormEvent } from "react"
-import { supabase } from "../supabase-client";
+import { supabase } from "../../supabase-client";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useAuth } from '../context/AuthContext';
-import { fetchCommunities, type Community } from './CommunityList';
+import { useAuth } from '../../context/AuthContext';
+import { fetchCommunities, type Community } from '../communities/CommunityList';
 import toast , {Toaster} from 'react-hot-toast';
 
 interface PostInput {

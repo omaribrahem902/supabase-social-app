@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "../supabase-client";
+import { supabase } from "../../supabase-client";
 import { CommentItem } from "./CommentItem";
 
 interface Props {
@@ -139,9 +139,10 @@ export const CommentSection = ({ postId }: Props) => {
           />
           <button
             type="submit"
-            className="mt-2 bg-purple-500 text-white px-4 py-2 rounded cursor-pointer"
+            disabled={isPending}
+            className="mt-2 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded cursor-pointer"
           >
-            {isPending ? "Posting..." : "Post Comment"}
+            {isPending ? "Posting..." : "Comment"}
           </button>
           {isError && (
             <p className="text-red-500 mt-2">Error posting comment.</p>

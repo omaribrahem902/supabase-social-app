@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Post } from "./PostList";
-import { supabase } from "../supabase-client";
+import type { Post } from "../posts/PostList";
+import { supabase } from "../../supabase-client";
 
-import { PostItem } from "./PostItem";
+import { PostItem } from "../posts/PostItem";
 
 interface Props {
     communityId: number;
