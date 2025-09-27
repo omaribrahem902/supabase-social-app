@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Comment } from "../CommentSection";
+import type { Comment } from "./CommentSection";
 import { useAuth } from "../../context/AuthContext";
 import { supabase } from "../../supabase-client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -145,7 +145,7 @@ export const CommentItem = ({ comment, postId }: Props) => {
 
           {!isCollapsed && (
             <div className="space-y-2">
-              {comment.children.map((child, key) => (
+              {comment.children.map((child:Comment, key:number) => (
                 <CommentItem key={key} comment={child} postId={postId} />
               ))}
             </div>
