@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 import { SkeletonLoader } from "../skeletons/PostSkeleton";
 import SpinnerLoader from "../SpinnerLoader";
+import { type InfiniteData } from "@tanstack/react-query";
 
 export interface Post {
   id: number;
@@ -42,7 +43,7 @@ export const PostList = () => {
     hasNextPage,
     isFetchingNextPage,
     isLoading,
-  } = useInfiniteQuery<Post[],Error,Post[],string[],number>({
+  } = useInfiniteQuery<Post[],Error,InfiniteData<Post[]>,string[],number>({
     queryKey: ["posts"],
     queryFn: fetchPosts,
     getNextPageParam: (lastPage, allPages) => {
@@ -76,9 +77,9 @@ export const PostList = () => {
 
   return (
     <div className="flex flex-wrap gap-6 justify-center">
-      {data?.pages.map((page, i) => (
+      {data?.pages.map((page:Post[], i:number) => (
         <div key={i} className="contents">
-          {page.map((post) => (
+          {page.map((post:Post) => (
             <PostItem post={post} key={post.id} />
           ))}
         </div>
