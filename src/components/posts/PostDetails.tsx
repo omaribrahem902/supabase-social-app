@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type { Post } from "./PostList";
+import type { Post } from "../../Interfaces";
 import { supabase } from "../../supabase-client";
 import { LikeButton } from "../LikeButton";
 import { CommentSection } from "../comment/CommentSection";
@@ -7,6 +7,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router";
 import { DeleteModal } from "../DeleteModal";
 import { useState } from "react";
+import { ErrorPage } from "../../pages/ErrorPage";
 
 interface Props {
     postId: number;
@@ -36,12 +37,12 @@ export const PostDetails = ({postId}:Props)=>{
     }
   
     if (error) {
-      return <div> Error: {error.message}</div>;
+      return <ErrorPage message={error.message} />;
     }
 
   async function handleDeletePost(): Promise<void> {
     if(!user) return;
-    if(data?.user_id == user.id){
+    if(data?.user_id === user.id){
      const { error } = await supabase.from("Posts").delete().eq("id", postId);
      if (error) throw new Error(error.message);
      navigate("/");
@@ -67,12 +68,12 @@ export const PostDetails = ({postId}:Props)=>{
         </p>
   
         <LikeButton postId={postId} />
-        <div className="flex justify-start lg:justify-center">
+        <div className={`flex justify-start lg:justify-center ${!user || user.id !== data?.user_id ? "hidden" : ""}`}>
         <button
               onClick={() => {
                 setOpen(true);
               }}
-              className="bg-red-600 hover:bg-red-700 text-white rounded-md py-1 px-3 cursor-pointer"
+              className="bg-red-600 hover:bg-red-700 text-white rounded-md py-1 px-3 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Delete
             </button>

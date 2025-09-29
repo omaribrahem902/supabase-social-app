@@ -3,24 +3,11 @@ import { useAuth } from "../../context/AuthContext";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../../supabase-client";
 import { CommentItem } from "./CommentItem";
+import type { NewComment } from "../../Interfaces";
+import type { Comment } from "../../Interfaces";
 
 interface Props {
   postId: number;
-}
-
-interface NewComment {
-  content: string;
-  parent_comment_id?: number | null;
-}
-
-export interface Comment {
-  id: number;
-  post_id: number;
-  parent_comment_id: number | null;
-  content: string;
-  user_id: string;
-  created_at: string;
-  author: string;
 }
 
 const createComment = async (

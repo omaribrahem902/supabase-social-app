@@ -1,13 +1,24 @@
 import { PostList } from "../components/posts/PostList"
+import { SearchBar } from "../components/SearchBar"
+import type { Post } from "../Interfaces"
+import { PostItem } from "../components/posts/PostItem"
+import {searchStore} from "../components/globalStates/global_state"
 
 export const Home = () => {
+    const {searchPostResults} = searchStore();
     return (
         <div className="mt-24">
-            {/* <h2 className="text-3xl lg:text-6xl font-bold mb-6 text-center bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-                Recent Posts
-            </h2> */}
             <div>
-                <PostList />
+                <SearchBar type="posts"/>
+                <div className="flex flex-wrap gap-6 justify-center">
+                {searchPostResults.length > 0 ? (
+                    searchPostResults.map((post:Post) => (
+                        <PostItem post={post} key={post.id} />
+                    ))
+                ) : (
+                    <PostList />
+                )}
+                </div>
             </div>
         </div>
     )

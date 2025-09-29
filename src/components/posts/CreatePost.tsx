@@ -70,7 +70,13 @@ export const CreatePost = () => {
               imageFile: selectedFile,
             },
             {
-              onSuccess: () => resolve("done"),
+              onSuccess: () => {
+                resolve("done")
+                setTitle("")
+                setContent("")
+                setSelectedFile(null)
+                setCommunityId(null)
+              },
               onError: (err) => reject(err),
             }
           );
@@ -105,6 +111,7 @@ export const CreatePost = () => {
         <input
           type="text"
           id="title"
+          autoFocus
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="w-full border border-gray-300 bg-transparent p-2 rounded"

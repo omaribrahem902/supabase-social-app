@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Comment } from "./CommentSection";
+import type { Comment } from "../../Interfaces";
 import { useAuth } from "../../context/AuthContext";
 import { supabase } from "../../supabase-client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

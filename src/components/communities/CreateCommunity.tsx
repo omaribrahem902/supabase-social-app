@@ -41,7 +41,11 @@ export const CreateCommunity = ()=>{
             user_id: user?.id || null,
           },
           {
-            onSuccess: () => resolve("done"),
+            onSuccess: () =>{ 
+              resolve("done")
+              setName("")
+              setDescription("")
+            },
             onError: (err) => reject(err),
           }
         );
@@ -51,7 +55,7 @@ export const CreateCommunity = ()=>{
         success: "Community created successfully",
         error: "Error creating community",
       }
-    );
+    );    
   };
     return(
          <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-4">
@@ -65,6 +69,7 @@ export const CreateCommunity = ()=>{
         <input
           type="text"
           id="name"
+          autoFocus
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="w-full border border-gray-400 bg-transparent p-2 rounded"

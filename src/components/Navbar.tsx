@@ -50,7 +50,7 @@ export const Navbar = () => {
               <div className="flex gap-2 lg:gap-4 ">
                 {user.user_metadata.avatar_url &&<img className="rounded-full w-7 h-7" src={user.user_metadata.avatar_url} alt="avatar image" />}
                 <span className="flex items-center">{displayName}</span>
-                <button className="bg-red-600 hover:bg-red-700 rounded-md py-1 px-3 cursor-pointer" onClick={signOut}>SignOut</button>
+                <button className="hidden md:block bg-red-600 hover:bg-red-700 rounded-md py-1 px-3 cursor-pointer" onClick={signOut}>SignOut</button>
               </div>
             ):(
               <button className="bg-green-600 hover:bg-green-700 rounded-md py-1 px-3 cursor-pointer" onClick={signInWithGitHub}>Sign In With Github</button>
@@ -99,7 +99,7 @@ export const Navbar = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="md:hidden bg-[rgba(10,10,10,0.9)]">
-          <div className="px-2 pt-2 pb-3 space-y-1">
+          <div className="text-white px-2 pt-2 pb-3 space-y-1">
             <Link
               to="/"
               className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
@@ -124,6 +124,7 @@ export const Navbar = () => {
             >
               Create Community
             </Link>
+            <button className="text-[14px] bg-red-600 hover:bg-red-700 rounded-md ml-3 my-2 py-1 px-3 cursor-pointer" onClick={signOut}>SignOut</button>
           </div>
         </div>
       )}

@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import type { Post } from "../posts/PostList";
 import { supabase } from "../../supabase-client";
-
+import { PostSkeleton } from "../../components/skeletons/PostSkeleton";
 import { PostItem } from "../posts/PostItem";
-
+import {ErrorPage} from "../../pages/ErrorPage";
 interface Props {
     communityId: number;
 }
@@ -31,11 +31,17 @@ export const CommunityDisplay = ({communityId}:Props)=>{
       });
     
       if (isLoading) {
-        return <div> Loading posts...</div>;
+        return (
+          <div className="flex flex-wrap gap-6 justify-center">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <PostSkeleton key={i} />
+            ))}
+          </div>
+        );
       }
     
       if (error) {
-        return <div> Error: {error.message}</div>;
+        return <ErrorPage message={error.message} />;
       }
 
     return(

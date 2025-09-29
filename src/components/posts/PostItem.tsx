@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import type { Post } from "../../components/posts/PostList";
+import type { Post } from "../../Interfaces";
 import { useAuth } from "../../context/AuthContext";
 
 interface Props {

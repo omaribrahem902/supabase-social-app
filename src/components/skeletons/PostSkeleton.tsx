@@ -1,4 +1,4 @@
-export const SkeletonLoader = () => {
+export const PostSkeleton = () => {
         return (
             <div className="animate-pulse flex flex-col gap-2 w-80 p-4 border border-gray-300 rounded-[20px] shadow-sm">
                 <div className="flex items-center space-x-2">

@@ -3,21 +3,11 @@ import { supabase } from "../../supabase-client";
 import { PostItem } from "./PostItem";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
-import { SkeletonLoader } from "../skeletons/PostSkeleton";
+import { PostSkeleton } from "../skeletons/PostSkeleton";
 import SpinnerLoader from "../SpinnerLoader";
 import { type InfiniteData } from "@tanstack/react-query";
-
-export interface Post {
-  id: number;
-  title: string;
-  content: string;
-  created_at: string;
-  image_url: string;
-  avatar_url?: string;
-  like_count?: number;
-  comment_count?: number;
-  user_id: string | null;
-}
+import { ErrorPage } from "../../pages/ErrorPage";
+import type { Post } from "../../Interfaces";
 
 const LIMIT = 8;
 
@@ -66,17 +56,17 @@ export const PostList = () => {
     return (
       <div className="flex flex-wrap gap-6 justify-center">
         {Array.from({ length: 8 }).map((_, i) => (
-          <SkeletonLoader key={i} />
+          <PostSkeleton key={i} />
         ))}
       </div>)
   }
 
   if (error) {
-    return <div>Error: {error?.message}</div>;
+    return <ErrorPage message={error.message} />;
   }
 
   return (
-    <div className="flex flex-wrap gap-6 justify-center">
+    <>
       {data?.pages.map((page:Post[], i:number) => (
         <div key={i} className="contents">
           {page.map((post:Post) => (
@@ -88,6 +78,6 @@ export const PostList = () => {
       <div ref={ref} className="h-10 flex justify-center items-center w-full">
         {isFetchingNextPage && <SpinnerLoader />}
       </div>
-    </div>
+    </>
   );
 };
