@@ -7,12 +7,6 @@ import { SuggestedSidebar } from './SuggestedSideBar';
 import { CommunityCard } from './CommunityCard';
 import { EditProfile } from './EditProfile';
 import { editProfileStore } from './userProfileStore';
-import { Toaster } from 'react-hot-toast';
-
-// Single-file React component (Tailwind CSS required) that implements the wireframe
-// - Default export: UserProfilePage
-// - Contains subcomponents: ProfileHeader, StatsBar, TabsNav, PostItem, SuggestedSidebar
-// - Uses placeholder data and minimal interactivity (tab switching)
 
 interface Props{
     userId: string;
@@ -104,7 +98,6 @@ export const UserProfileDisplay = ({userId}: Props) => {
           {isEditProfileOpen && <EditProfile/>}
         </aside>
       </div>
-      <Toaster />
     </div>
   );
 }

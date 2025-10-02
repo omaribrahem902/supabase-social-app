@@ -3,7 +3,7 @@ import { useState, type ChangeEvent, type FormEvent } from "react"
 import { supabase } from "../../supabase-client"; 
 import { useMutation } from "@tanstack/react-query"; 
 import { useAuth } from '../../context/AuthContext'; 
-import toast , {Toaster} from 'react-hot-toast'; 
+import toast from 'react-hot-toast'; 
 import { editProfileStore } from "./userProfileStore"; 
 
 interface EditProfileInput { 
@@ -43,7 +43,6 @@ export const EditProfile = () => {
   const [name, setName] = useState<string>(""); 
   const [bio, setBio] = useState<string>(""); 
   const [selectedFile, setSelectedFile] = useState<File | null>(null); 
-  const isEditProfileOpen = editProfileStore((state) => state.isEditProfileOpen); 
   const setIsEditProfileOpen = editProfileStore((state) => state.setIsEditProfileOpen); 
   const { user } = useAuth(); 
 
