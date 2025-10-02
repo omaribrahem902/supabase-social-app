@@ -42,6 +42,7 @@ export const CreatePost = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [communityId, setCommunityId] = useState<number | null>(null);
   const { user } = useAuth();
+  console.log(user);
 
   const { data: communities } = useQuery<Community[], Error>({
     queryKey: ["communities"],
@@ -85,7 +86,7 @@ export const CreatePost = () => {
         {
           loading: "Creating post...",
           success: "Post created successfully",
-          error: "Failed to create postF",
+          error: "Failed to create post",
         }
       );
     }
@@ -162,14 +163,14 @@ export const CreatePost = () => {
           accept="image/*"
           required
           onChange={handleFileChange}
-          className="w-fit text-gray-200 cursor-pointer"
+          className="w-fit text-gray-400 cursor-pointer"
         />
       </div>
 
       {/* Submit Button */}
       <button
         type="submit"
-        className="w-[113px] flex justify-center bg-purple-500 disabled:bg-purple-200 text-white px-4 py-2 rounded disabled:cursor-not-allowed cursor-pointer"
+        className="text-[12px] lg:text-[16px] flex justify-center bg-purple-500 disabled:bg-purple-200 text-white px-4 py-2 rounded disabled:cursor-not-allowed cursor-pointer"
         disabled={isPending}
       >
         Create Post

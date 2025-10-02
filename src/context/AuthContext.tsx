@@ -5,6 +5,7 @@ import { supabase } from "../supabase-client";
 interface AuthContextType{
     user: User|null;
     signInWithGitHub: ()=> void;
+    signInWithOTP: (email: string) => Promise<{ error: Error | null }>;
     signOut: ()=>void;
 }
 
@@ -33,13 +34,22 @@ export const AuthProvider = ({children}:{children:ReactNode})=>{
         supabase.auth.signInWithOAuth({provider:"github"});
     }
 
+    const signInWithOTP = async (email: string) => { 
+        const { error } = await supabase.auth.signInWithOtp({ 
+          email, 
+          options: { 
+            emailRedirectTo: "http://localhost:5173/", // غيرها باللينك بتاعك
+          }, 
+        });
+        return { error };
+    }
     const signOut = ()=>{
         supabase.auth.signOut();
     }
    
 
     return(
-        <AuthContext.Provider value={{user,signInWithGitHub,signOut}}>
+        <AuthContext.Provider value={{user,signInWithGitHub,signInWithOTP,signOut}}>
             {children}
         </AuthContext.Provider>
     )

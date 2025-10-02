@@ -8,6 +8,7 @@ import { useNavigate } from "react-router";
 import { DeleteModal } from "../DeleteModal";
 import { useState } from "react";
 import { ErrorPage } from "../../pages/ErrorPage";
+import { PostDetailsSkeleton } from "../skeletons/PostDetailsSkeleton";
 
 interface Props {
     postId: number;
@@ -17,7 +18,7 @@ const fetchPost = async (id:number): Promise<Post> => {
     const { data, error } = await supabase.from("Posts").select("*").eq("id",id).single();
   
     if (error) throw new Error(error.message);
-  
+    
     return data as Post;
   };
 
@@ -33,7 +34,7 @@ export const PostDetails = ({postId}:Props)=>{
     });
   
     if (isLoading) {
-      return <div> Loading post...</div>;
+      return <PostDetailsSkeleton />;
     }
   
     if (error) {

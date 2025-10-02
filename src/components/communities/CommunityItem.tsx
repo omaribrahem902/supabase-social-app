@@ -4,8 +4,8 @@ import { toggleDeleteModalStore, selectedCommunityStore } from "../globalStates/
 import { useAuth } from "../../context/AuthContext";
 
 export const CommunityItem = ({ community }: { community: Community }) => {
-  const { setOpen } = toggleDeleteModalStore();
-  const { setSelectedCommunity } = selectedCommunityStore();
+  const setOpen  = toggleDeleteModalStore((state) => state.setOpen);
+  const setSelectedCommunity = selectedCommunityStore((state) => state.setSelectedCommunity);
   const {user} = useAuth();
   return (
     <div

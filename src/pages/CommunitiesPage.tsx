@@ -10,9 +10,10 @@ import { useQueryClient } from "@tanstack/react-query"
 import { supabase } from "../supabase-client"
 
 export const CommunitiesPage = ()=>{
-    const {searchCommunityResults} = searchStore();
-    const {selectedCommunity} = selectedCommunityStore();
-    const { open, setOpen } = toggleDeleteModalStore();
+    const searchCommunityResults = searchStore((state) => state.searchCommunityResults);
+    const selectedCommunity = selectedCommunityStore((state) => state.selectedCommunity);
+    const open = toggleDeleteModalStore((state) => state.open);
+    const setOpen = toggleDeleteModalStore((state) => state.setOpen);
     const queryClient = useQueryClient();
 
     async function handleDeleteCommunity(communityId: number): Promise<void> {
@@ -25,7 +26,7 @@ export const CommunitiesPage = ()=>{
       }
 
     return(
-        <div className="pt-20">
+        <div>
             <SearchBar type="communities"/>
             <div className="max-w-5xl mx-auto space-y-4">
                 {searchCommunityResults.length > 0 ? (

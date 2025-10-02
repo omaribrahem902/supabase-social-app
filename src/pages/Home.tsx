@@ -5,9 +5,9 @@ import { PostItem } from "../components/posts/PostItem"
 import {searchStore} from "../components/globalStates/global_state"
 
 export const Home = () => {
-    const {searchPostResults} = searchStore();
+    const searchPostResults = searchStore((state) => state.searchPostResults);
     return (
-        <div className="mt-24">
+        <div className="">
             <div>
                 <SearchBar type="posts"/>
                 <div className="flex flex-wrap gap-6 justify-center">

@@ -32,3 +32,11 @@ export interface NewComment {
     content: string;
     parent_comment_id?: number | null;
 }
+
+export interface Profile {
+    id: string;
+    created_at: string;
+    name: string;
+    bio: string;
+    avatar_url: string | null;
+}

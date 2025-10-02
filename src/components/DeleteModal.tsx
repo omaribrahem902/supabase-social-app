@@ -42,16 +42,16 @@ export function DeleteModal({
   return (
     <div
       onClick={handleBackdropClick}
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+      className="fixed inset-0 flex items-center justify-center z-50"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white dark:bg-gray-900 rounded-2xl shadow-lg w-full max-w-xs lg:max-w-md p-6 relative"
+        className="bg-white rounded-2xl shadow-lg w-full max-w-xs lg:max-w-md p-6 relative"
       >
         {/* Close X */}
         <button
           onClick={() => setOpen(false)}
-          className="absolute top-1 right-4 text-gray-500 hover:text-gray-800 dark:hover:text-gray-300 text-xl cursor-pointer"
+          className="absolute top-1 right-4 text-gray-500 hover:text-gray-800 text-xl cursor-pointer"
         >
           ×
         </button>
@@ -64,7 +64,7 @@ export function DeleteModal({
         <div className="flex justify-end gap-3 mt-6">
           <button
             onClick={() => setOpen(false)}
-            className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 cursor-pointer"
+            className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100 cursor-pointer"
             disabled={loading}
           >
             Cancel

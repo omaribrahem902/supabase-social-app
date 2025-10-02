@@ -8,7 +8,8 @@ interface SearchBarProps {
 
 export const SearchBar = ({type}:SearchBarProps) => {
     const [searchQuery,setSearchQuery] = useState<string>("");
-    const {setSearchPostResults,setSearchCommunityResults} = searchStore();
+    const setSearchPostResults = searchStore((state) => state.setSearchPostResults);
+    const setSearchCommunityResults = searchStore((state) => state.setSearchCommunityResults);
     
     const handleSearch = async () => {
         if (!searchQuery.trim()) return;
