@@ -38,7 +38,7 @@ export const AuthProvider = ({children}:{children:ReactNode})=>{
         const { error } = await supabase.auth.signInWithOtp({ 
           email, 
           options: { 
-            emailRedirectTo: "http://localhost:5173/", // غيرها باللينك بتاعك
+            emailRedirectTo: "http://localhost:5173/",  
           }, 
         });
         return { error };

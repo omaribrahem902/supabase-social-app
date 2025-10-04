@@ -18,7 +18,6 @@ const fetchCommunityPosts = async (communityId:number): Promise<postWithCommunit
     const { data, error } = await supabase.from("Posts").select("* , Communities(name)").eq("community_id",communityId);
   
     if (error) throw new Error(error.message);
-    console.log(data);
     return data as postWithCommunity[] ;
   };
 

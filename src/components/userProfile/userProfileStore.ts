@@ -1,4 +1,6 @@
 import { create } from "zustand";
+import { supabase } from "../../supabase-client";
+import type { Profile } from "../../Interfaces";
 
 interface EditProfileStore{
     isEditProfileOpen: boolean;
@@ -11,5 +13,31 @@ const editProfileStore = create<EditProfileStore>((set) => ({
 }))
 
 
+interface ProfileCompletionStore{
+    profileCompletion: number;
+    setProfileCompletion: (profileCompletion: number) => void;
+}
 
-export {editProfileStore};
+const profileCompletionStore = create<ProfileCompletionStore>((set) => ({
+    profileCompletion: 0,
+    setProfileCompletion: (profileCompletion: number) => set({ profileCompletion }),
+}))
+
+const fetchUser = async (userId: string) : Promise<Profile> => {
+    const { data, error } = await supabase.from("Profiles").select("*").eq("id", userId);
+    if (error) throw new Error(error.message);
+    return data[0];
+};
+
+interface ProfileStore{
+    profile: Profile | null | undefined;
+    setProfile: (profile: Profile | null | undefined) => void;
+}
+
+const profileStore = create<ProfileStore>((set) => ({
+    profile: null,
+    setProfile: (profile: Profile | null | undefined) => set({ profile }),
+}))
+
+
+export {editProfileStore, profileCompletionStore, fetchUser,profileStore};

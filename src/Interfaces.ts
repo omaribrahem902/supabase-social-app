@@ -8,6 +8,7 @@ export interface Post {
     like_count?: number;
     comment_count?: number;
     user_id: string | null;
+    user_name: string | null;
 }
 
 export interface Community {

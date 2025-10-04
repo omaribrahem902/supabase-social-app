@@ -22,7 +22,6 @@ export const SearchBar = ({type}:SearchBarProps) => {
             return;
         }
         setSearchPostResults(data);
-        console.log(data);
         }else {
             const { data, error } = await supabase
           .from("Communities")

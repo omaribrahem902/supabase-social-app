@@ -4,7 +4,7 @@ import { supabase } from "../../supabase-client";
 import { useMutation } from "@tanstack/react-query"; 
 import { useAuth } from '../../context/AuthContext'; 
 import toast from 'react-hot-toast'; 
-import { editProfileStore } from "./userProfileStore"; 
+import { editProfileStore, profileCompletionStore } from "./userProfileStore"; 
 
 interface EditProfileInput { 
   name: string; 
@@ -44,6 +44,7 @@ export const EditProfile = () => {
   const [bio, setBio] = useState<string>(""); 
   const [selectedFile, setSelectedFile] = useState<File | null>(null); 
   const setIsEditProfileOpen = editProfileStore((state) => state.setIsEditProfileOpen); 
+  const setProfileCompletion = profileCompletionStore((state) => state.setProfileCompletion);
   const { user } = useAuth(); 
 
   const { mutate, isPending } = useMutation({ 
@@ -73,6 +74,7 @@ export const EditProfile = () => {
                 setBio("") 
                 setSelectedFile(null) 
                 setIsEditProfileOpen(false) 
+                setProfileCompletion(100);
               }, 
               onError: (err) => reject(err), 
             } 
@@ -94,7 +96,7 @@ export const EditProfile = () => {
   }; 
 
   return ( 
-    <aside className="hidden lg:block space-y-4 sticky top-[412px]">
+    <aside className="sticky top-[500px]">
       <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm">
         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-3">
           <div>

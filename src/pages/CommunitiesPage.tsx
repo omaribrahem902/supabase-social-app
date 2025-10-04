@@ -17,14 +17,14 @@ export const CommunitiesPage = ()=>{
     const queryClient = useQueryClient();
 
     async function handleDeleteCommunity(communityId: number): Promise<void> {
-        const { error } = await supabase
-          .from("Communities")
-          .delete()
-          .eq("id", communityId);
-        if (error) throw new Error(error.message);
-        queryClient.invalidateQueries({ queryKey: ["Communities"] }); // refresh the communities query
-      }
-
+      const { error } = await supabase
+        .from("Communities")
+        .delete()
+        .eq("id", communityId);
+      if (error) throw new Error(error.message);
+      queryClient.invalidateQueries({ queryKey: ["Communities"] }); // refresh the communities query
+    }
+    
     return(
         <div>
             <SearchBar type="communities"/>

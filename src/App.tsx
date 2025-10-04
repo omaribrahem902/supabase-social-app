@@ -8,9 +8,7 @@ import { CreateCommunityPage } from './pages/CreateCommunityPage'
 import { CommunitiesPage } from './pages/CommunitiesPage'
 import { CommunityPage } from './pages/CommunityPage'
 import { UserProfilePage } from './pages/UserProfilePage'
-
 function App() {
-
   return (
     <div>
       <Navbar/>

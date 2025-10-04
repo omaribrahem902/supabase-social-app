@@ -2,53 +2,20 @@ import { useState } from 'react';
 import { ProfileHeader } from './ProfileHeader';
 import { StatsBar } from './StatusBar';
 import { TabsNav } from './TabsNav';
-import { UserPostItem } from './UserPostItem';
 import { SuggestedSidebar } from './SuggestedSideBar';
-import { CommunityCard } from './CommunityCard';
 import { EditProfile } from './EditProfile';
 import { editProfileStore } from './userProfileStore';
+import { DisplayUserPosts } from './DisplayUserPosts';
+import { DisplayUserCommunities } from './DisplayUserCommunities';
+import { ProfileCompletion } from './ProfileCompletion';
 
 interface Props{
     userId: string;
 }
 
 export const UserProfileDisplay = ({userId}: Props) => {
-  const [activeTab, setActiveTab] = useState<'posts' | 'replies' | 'media' | 'communities'>('posts');
+  const [activeTab, setActiveTab] = useState<'posts' | 'communities'>('posts');
   const isEditProfileOpen = editProfileStore((state) => state.isEditProfileOpen);
-
-  const posts = [
-    {
-      id: 'p1',
-      title: 'A neat post title',
-      excerpt:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.',
-      time: '2h',
-    },
-    {
-      id: 'p2',
-      title: 'Another post',
-      excerpt: 'Suspendisse potenti. Nullam quis risus eget urna mollis ornare vel eu leo.',
-      time: '1d',
-    },
-    {
-      id: 'p3',
-      title: 'Small update',
-      excerpt: 'Curabitur blandit tempus porttitor. Maecenas sed diam eget risus varius blandit sit amet non magna.',
-      time: '3d',
-    },
-    {
-      id: 'p4',
-      title: 'Small update',
-      excerpt: 'Curabitur blandit tempus porttitor. Maecenas sed diam eget risus varius blandit sit amet non magna.',
-      time: '3d',
-    },
-    {
-      id: 'p5',
-      title:'Small update',
-      excerpt: 'Curabitur blandit tempus porttitor. Maecenas sed diam eget risus varius blandit sit amet non magna.',
-      time: '3d',
-    },
-  ];
 
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
@@ -56,6 +23,10 @@ export const UserProfileDisplay = ({userId}: Props) => {
         {/* Main column */}
         <div className="lg:col-span-2 space-y-6">
           <ProfileHeader userId={userId}/>
+            <div className="block lg:hidden">
+              <ProfileCompletion />
+              {isEditProfileOpen && <EditProfile/>}
+            </div>
           <StatsBar />
 
           <div className="bg-white rounded-2xl p-4 shadow-sm">
@@ -64,38 +35,25 @@ export const UserProfileDisplay = ({userId}: Props) => {
             <div className="mt-4 space-y-4">
               {activeTab === 'posts' && (
                 <div className="space-y-4">
-                  {posts.map((p) => (
-                    <UserPostItem key={p.id} post={p} />
-                  ))}
+                  {<DisplayUserPosts userId={userId} />}
                 </div>
-              )}
-
-              {activeTab === 'replies' && (
-                <div className="text-sm text-gray-600 ">No replies yet.</div>
-              )}
-
-              {activeTab === 'media' && (
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                  <div className="h-32 bg-gray-200" />
-                  <div className="h-32 bg-gray-200" />
-                  <div className="h-32 bg-gray-200" />
-                </div>
-              )}
+                )
+              }
 
               {activeTab === 'communities' && (
-                <div className="space-y-2">
-                  <CommunityCard name="React Devs" members={1200} />
-                  <CommunityCard name="UI/UX" members={540} />
-                </div>
+                <DisplayUserCommunities userId={userId} />
               )}
             </div>
           </div>
         </div>
 
         {/* Sidebar */}
-        <aside className="hidden lg:block">
+        <aside className="flex flex-col gap-4">
           <SuggestedSidebar />
-          {isEditProfileOpen && <EditProfile/>}
+          <div className="hidden lg:block">
+            <ProfileCompletion />
+            {isEditProfileOpen && <EditProfile/>}
+          </div>
         </aside>
       </div>
     </div>

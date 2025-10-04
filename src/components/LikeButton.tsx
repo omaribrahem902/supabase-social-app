@@ -26,7 +26,7 @@ const fetchVotes = async (postId: number): Promise<Vote[]> => {
 
 // function that handles vote insert / update / delete
 const vote = async (voteValue: number, postId: number, userId: string) => {
-    // 1️⃣ check if user already voted
+    //  check if user already voted
     const { data: existingVote, error: fetchError } = await supabase
       .from("Votes")
       .select("*")
@@ -38,7 +38,7 @@ const vote = async (voteValue: number, postId: number, userId: string) => {
       throw new Error(fetchError.message);
     }
   
-    // 2️⃣ if no vote exists → insert new one
+    //  if no vote exists → insert new one
     if (!existingVote) {
       const { data, error } = await supabase
         .from("Votes")
@@ -54,7 +54,7 @@ const vote = async (voteValue: number, postId: number, userId: string) => {
       return data;
     }
   
-    // 3️⃣ if same vote exists → delete it
+    //  if same vote exists → delete it
     if (existingVote.vote === voteValue) {
       const { error: deleteError } = await supabase
         .from("Votes")
@@ -64,11 +64,11 @@ const vote = async (voteValue: number, postId: number, userId: string) => {
   
       if (deleteError) throw new Error(deleteError.message);
   
-      // ✅ return marker instead of null
+      //  return marker instead of null
       return { id: existingVote.id, deleted: true };
     }
   
-    // 4️⃣ if different vote exists → update it
+    //  if different vote exists → update it
     const { data, error } = await supabase
       .from("Votes")
       .update({ vote: voteValue })

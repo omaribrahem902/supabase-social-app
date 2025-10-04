@@ -1,20 +1,19 @@
 import { Link } from "react-router";
 import type { Post } from "../../Interfaces";
-import { useAuth } from "../../context/AuthContext";
 
 interface Props {
   post: Post;
 }
 
 export const PostItem = ({ post }: Props) => {
-  const {user} = useAuth();
   return (
     <div className="relative group min-h-[338px]">
       <div className="absolute -inset-1 rounded-[20px] bg-gradient-to-r from-pink-600 to-purple-600 blur-sm opacity-0 group-hover:opacity-50 transition duration-300 pointer-events-none"></div>
-      <Link to={`/post/${post.id}`} className="block relative z-10">
+      <div className="block relative z-10">
         <div className="w-80 h-[338px] bg-[rgb(24,27,32)] border border-[rgb(84,90,106)] rounded-[20px] text-white flex flex-col p-5 overflow-hidden transition-colors duration-300 group-hover:bg-gray-800">
           {/* Header: Avatar and Title */}
-          <div className="flex items-center space-x-2">
+          <Link to={`/profile/${post.user_id}`} className="flex items-center space-x-2">
+          
             {post.avatar_url ? (
               <img
                 src={post.avatar_url}
@@ -26,11 +25,13 @@ export const PostItem = ({ post }: Props) => {
             )}
             <div className="flex flex-col flex-1">
               <div className="text-[12px] leading-[22px] font-semibold">
-                {user?.user_metadata.full_name}
+                {post.user_name}
               </div>
             </div>
-          </div>
-            <h3 className="text-[18px] font-semibold pl-2 mt-1">{post.title}</h3>
+          </Link>
+          <Link to={`/post/${post.id}`}>
+          <h3 className="text-[18px] font-semibold pl-2 mt-1">{post.title}</h3>
+          
           {/* Image Banner */}
           <div className="mt-1 flex-1">
             <img
@@ -47,8 +48,9 @@ export const PostItem = ({ post }: Props) => {
               💬 <span className="ml-2">{post.comment_count ?? 0}</span>
             </span>
           </div>
+          </Link>
         </div>
-      </Link>
+      </div>
     </div>
   );
 };

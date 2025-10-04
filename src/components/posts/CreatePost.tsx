@@ -1,11 +1,12 @@
 import '../../index.css'
-import { useState, type ChangeEvent, type FormEvent } from "react"
+import { useCallback, useState, type ChangeEvent, type FormEvent } from "react"
 import { supabase } from "../../supabase-client";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useAuth } from '../../context/AuthContext';
 import { fetchCommunities } from '../communities/CommunityList';
 import type { Community } from "../../Interfaces";
 import toast , {Toaster} from 'react-hot-toast';
+import { fetchUser } from '../userProfile/userProfileStore';
 
 interface PostInput {
   title: string;
@@ -13,9 +14,11 @@ interface PostInput {
   avatar_url: string | null;
   community_id: number | null;
   user_id: string | null;
+  user_name: string | null;
 }
 
 const createPost = async (post: PostInput, imageFile: File) => {
+
   const filePath = `${post.title}-${Date.now()}-${imageFile.name}`;
   const { error: uploadError } = await supabase.storage
     .from("post-images")
@@ -42,11 +45,16 @@ export const CreatePost = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [communityId, setCommunityId] = useState<number | null>(null);
   const { user } = useAuth();
-  console.log(user);
+  
+  const {data: profile} = useQuery({
+    queryKey: ["profile", user?.id],
+    queryFn: () => fetchUser(user?.id || ""),
+  });
 
   const { data: communities } = useQuery<Community[], Error>({
     queryKey: ["communities"],
     queryFn: fetchCommunities,
+
   });
 
   const { mutate, isPending } = useMutation({
@@ -55,9 +63,11 @@ export const CreatePost = () => {
     },
   });
 
-  const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (selectedFile) {
+  const handleSubmit = useCallback(
+    (e: FormEvent) => {
+      e.preventDefault();
+      if (!selectedFile) return;
+
       toast.promise(
         new Promise((resolve, reject) => {
           mutate(
@@ -65,19 +75,20 @@ export const CreatePost = () => {
               post: {
                 title,
                 content,
-                avatar_url: user?.user_metadata.avatar_url || null,
+                avatar_url: profile?.avatar_url || null,
                 community_id: communityId,
-                user_id: user?.id || null,
+                user_id: profile?.id || null,
+                user_name: profile?.name || null,
               },
               imageFile: selectedFile,
             },
             {
               onSuccess: () => {
-                resolve("done")
-                setTitle("")
-                setContent("")
-                setSelectedFile(null)
-                setCommunityId(null)
+                resolve("done");
+                setTitle("");
+                setContent("");
+                setSelectedFile(null);
+                setCommunityId(null);
               },
               onError: (err) => reject(err),
             }
@@ -89,19 +100,20 @@ export const CreatePost = () => {
           error: "Failed to create post",
         }
       );
-    }
-  };
+    },
+    [title, content, selectedFile, communityId, user, mutate]
+  );
 
-  const handleCommunityChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  const handleCommunityChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setCommunityId(value ? Number(value) : null);
-  };
+  }, []);
 
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setSelectedFile(e.target.files[0]);
     }
-  };
+  }, []);
 
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-4">

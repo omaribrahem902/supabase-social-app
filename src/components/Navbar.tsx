@@ -2,15 +2,18 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { useAuth } from "../context/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
+import { profileStore, profileCompletionStore } from "./userProfile/userProfileStore";
 
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [emailFieldIsOpen, setEmailFieldIsOpen] = useState<boolean>(false);
+  const profile = profileStore((state) => state.profile);
+  const profileCompletion = profileCompletionStore((state) => state.profileCompletion);
   const {user,signInWithGitHub,signInWithOTP,signOut} = useAuth();
 
-  const displayName = user?.user_metadata.user_name || user?.email;
+  const displayName = profile?.name;
 
   const handleLogin = async () => {
     setLoading(true);
@@ -77,9 +80,12 @@ export const Navbar = () => {
           <div className="text-white text-[12px] ">
             {user? (
               <div className="flex gap-2 lg:gap-4 cursor-pointer">
-                <Link className="flex items-center gap-2" to={`/profile/${user.id}`}>
-                  {user.user_metadata.avatar_url &&<img className="rounded-full w-7 h-7" src={user.user_metadata.avatar_url} alt="avatar image" />}
-                  <span className="flex items-center">{displayName}</span>
+                <Link className="relative flex items-center gap-2" to={`/profile/${user.id}`}>
+                  {profile?.avatar_url &&<img className="rounded-full w-7 h-7" src={profile.avatar_url} alt="avatar image" />}
+                  <span className="flex items-center">{displayName || user.email}</span>
+                  {profileCompletion < 100 ? (
+                    <span className="absolute w-3 h-3 -left-1 -top-[2px] bg-red-600 rounded-full"></span>
+                  ) : null}
                 </Link>
                 <button className="hidden md:block bg-red-600 hover:bg-red-700 rounded-md py-1 px-3 cursor-pointer" onClick={signOut}>SignOut</button>
               </div>
@@ -102,6 +108,7 @@ export const Navbar = () => {
               required
               autoFocus
               onChange={(e) => setEmail(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleLogin()}
               className="w-full h-6 p-1 border rounded-md"
             />
             <button
