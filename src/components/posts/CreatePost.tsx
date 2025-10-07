@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import { fetchCommunities } from '../communities/CommunityList';
 import type { Community } from "../../Interfaces";
 import toast , {Toaster} from 'react-hot-toast';
-import { fetchUser } from '../userProfile/userProfileStore';
+import { getPublicProfile } from '../userProfile/userProfileStore';
 
 interface PostInput {
   title: string;
@@ -48,7 +48,7 @@ export const CreatePost = () => {
   
   const {data: profile} = useQuery({
     queryKey: ["profile", user?.id],
-    queryFn: () => fetchUser(user?.id || ""),
+    queryFn: () => getPublicProfile(user?.id || ""),
   });
 
   const { data: communities } = useQuery<Community[], Error>({

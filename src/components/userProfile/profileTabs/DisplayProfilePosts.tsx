@@ -1,12 +1,12 @@
-import { UserPostItem } from "./UserPostItem"
 import { useQuery } from "@tanstack/react-query"
-import { supabase } from "../../supabase-client"
-import type { Post } from "../../Interfaces";
-import { ErrorPage } from "../../pages/ErrorPage";
-import { UserPostSkeleton } from "../skeletons/UserPostSkeleton";
+import { supabase } from "../../../supabase-client"
+import type { Post } from "../../../Interfaces";
+import { ErrorPage } from "../../../pages/ErrorPage";
+import { ProfilePostSkeleton } from "../../skeletons/profileSkeletons/ProfilePostSkeleton";
+import { ProfilePostItem } from "./ProfilePostItem";
 
 interface Props{
-    userId: string;
+    profileId: string;
 }
 
 async function fetchUserPosts(userId: string) : Promise<Post[]> {
@@ -15,17 +15,17 @@ async function fetchUserPosts(userId: string) : Promise<Post[]> {
     return data as Post[];
 }
 
-export const DisplayUserPosts = ({userId}: Props) => {
+export const DisplayUserPosts = ({profileId}: Props) => {
     const {data: posts, error, isLoading} = useQuery<Post[], Error>({
-        queryKey: ['userPosts', userId],
-        queryFn: () => fetchUserPosts(userId)
+        queryKey: ['profilePosts', profileId],
+        queryFn: () => fetchUserPosts(profileId)
 
     })
     if(isLoading){
         return(
             <div className="flex flex-col gap-3 justify-center">
                 {Array.from({ length: 3 }).map((_, i) => (
-                    <UserPostSkeleton key={i} />
+                    <ProfilePostSkeleton key={i} />
                 ))}
             </div>
         )
@@ -34,10 +34,14 @@ export const DisplayUserPosts = ({userId}: Props) => {
         return <ErrorPage message={error.message} />
     }
     return(
-        <div className="flex flex-col gap-2">
+        <>
+        {posts?.length === 0 ? (<p>Not created any posts yet</p>):(
+            <div className="flex flex-col gap-2">
             {posts?.map((p: Post) => (
-                <UserPostItem key={p.id} post={p} />
+                <ProfilePostItem key={p.id} post={p} />
             ))}
         </div>
+        )} 
+        </>
     )
 }

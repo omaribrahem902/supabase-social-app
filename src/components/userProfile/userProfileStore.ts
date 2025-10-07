@@ -23,8 +23,9 @@ const profileCompletionStore = create<ProfileCompletionStore>((set) => ({
     setProfileCompletion: (profileCompletion: number) => set({ profileCompletion }),
 }))
 
-const fetchUser = async (userId: string) : Promise<Profile> => {
-    const { data, error } = await supabase.from("Profiles").select("*").eq("id", userId);
+const getPublicProfile = async (profileId: string) : Promise<Profile> => {
+    const { data, error } = await supabase
+    .rpc("get_public_profile", { target_user_id: profileId });
     if (error) throw new Error(error.message);
     return data[0];
 };
@@ -40,4 +41,4 @@ const profileStore = create<ProfileStore>((set) => ({
 }))
 
 
-export {editProfileStore, profileCompletionStore, fetchUser,profileStore};
+export {editProfileStore, profileCompletionStore, getPublicProfile,profileStore};

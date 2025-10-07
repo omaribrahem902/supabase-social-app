@@ -1,19 +1,18 @@
-import '../../index.css' 
+import '../../../index.css' 
 import { useState, type ChangeEvent, type FormEvent } from "react" 
-import { supabase } from "../../supabase-client"; 
+import { supabase } from "../../../supabase-client"; 
 import { useMutation } from "@tanstack/react-query"; 
-import { useAuth } from '../../context/AuthContext'; 
+import { useAuth } from '../../../context/AuthContext'; 
 import toast from 'react-hot-toast'; 
-import { editProfileStore, profileCompletionStore } from "./userProfileStore"; 
+import { editProfileStore, profileCompletionStore } from "../userProfileStore"; 
 
 interface EditProfileInput { 
   name: string; 
-  bio: string; 
-  avatar_url: string | null;  
+  bio: string;   
 } 
 
-const editProfile = async (profile: EditProfileInput, imageFile: File, user_id: string) => { 
-  let avatar_url = profile.avatar_url || null;
+const editProfile = async (profile: EditProfileInput, imageFile: File | null, user_id: string) => { 
+  let avatar_url;
 
   if(imageFile){
   const filePath = `${Date.now()}-${imageFile.name}`; 
@@ -28,15 +27,28 @@ const editProfile = async (profile: EditProfileInput, imageFile: File, user_id: 
     .getPublicUrl(filePath); 
 
     avatar_url = publicURLData.publicUrl;
-  }
-  const { data, error } = await supabase 
+
+    const { data, error } = await supabase 
     .from('Profiles') 
     .update({ ...profile, avatar_url})
-    .eq('id', user_id); 
+    .eq('id', user_id);
 
-  if (error) throw new Error(error.message); 
+    if (error) throw new Error(error.message); 
 
-  return data; 
+    return data;
+  }else{
+    const { data, error } = await supabase 
+    .from('Profiles') 
+    .update({ ...profile})
+    .eq('id', user_id);
+
+    if (error) throw new Error(error.message); 
+
+    return data;
+  }
+   
+
+   
 }; 
 
 export const EditProfile = () => { 
@@ -48,14 +60,13 @@ export const EditProfile = () => {
   const { user } = useAuth(); 
 
   const { mutate, isPending } = useMutation({ 
-    mutationFn: (data: { profile: EditProfileInput; imageFile: File }) => { 
+    mutationFn: (data: { profile: EditProfileInput; imageFile: File | null }) => { 
       return editProfile(data.profile, data.imageFile, user?.user_metadata.user_id || user?.id || ""); 
     }, 
   }); 
 
   const handleSubmit = (e: FormEvent) => { 
     e.preventDefault(); 
-    if (selectedFile) { 
       toast.promise( 
         new Promise((resolve, reject) => { 
           mutate( 
@@ -63,7 +74,6 @@ export const EditProfile = () => {
               profile: { 
                 name, 
                 bio, 
-                avatar_url: user?.user_metadata.avatar_url || user?.id || null, 
               }, 
               imageFile: selectedFile, 
             }, 
@@ -86,7 +96,6 @@ export const EditProfile = () => {
           error: "Failed to edit profile", 
         } 
       ); 
-    } 
   }; 
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => { 
@@ -123,7 +132,6 @@ export const EditProfile = () => {
               onChange={(e) => setBio(e.target.value)}
               className="w-full border border-gray-300 bg-transparent p-2 rounded"
               rows={2}
-              required
             />
           </div>
 
@@ -154,7 +162,7 @@ export const EditProfile = () => {
             <button
               type="submit"
               className="bg-purple-500 disabled:bg-purple-200 text-white px-4 py-2 rounded disabled:cursor-not-allowed cursor-pointer"
-              disabled={isPending}
+              disabled={isPending || (!name && !bio && !selectedFile)}
             >
               Save
             </button>

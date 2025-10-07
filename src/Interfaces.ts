@@ -40,4 +40,17 @@ export interface Profile {
     name: string;
     bio: string;
     avatar_url: string | null;
+    is_following: boolean;
+}
+
+export interface Follow{
+    follower_id: string;
+    following_id: string;
+}
+
+export interface ProfileStats{
+  postsCount: number;
+  communitiesCount: number;
+  followersCount: number;
+  followingCount: number;
 }

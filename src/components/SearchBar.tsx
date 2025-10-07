@@ -18,8 +18,7 @@ export const SearchBar = ({type}:SearchBarProps) => {
           .rpc("get_posts_with_counts")
           .or(`title.ilike.%${searchQuery}%`);
         if (error) {
-            console.error("Error searching posts:", error);
-            return;
+            throw new Error(error.message);
         }
         setSearchPostResults(data);
         }else {
@@ -28,8 +27,7 @@ export const SearchBar = ({type}:SearchBarProps) => {
           .select("*")
           .or(`name.ilike.%${searchQuery}%`);
         if (error) {
-            console.error("Error searching communities:", error);
-            return;
+            throw new Error(error.message);
         }
         setSearchCommunityResults(data);
         }

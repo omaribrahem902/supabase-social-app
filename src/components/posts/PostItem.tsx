@@ -24,7 +24,7 @@ export const PostItem = ({ post }: Props) => {
               <div className="w-9 h-9 rounded-full bg-gradient-to-tl from-[#8A2BE2] to-[#491F70]" />
             )}
             <div className="flex flex-col flex-1">
-              <div className="text-[12px] leading-[22px] font-semibold">
+              <div className= "text-[12px] leading-[22px] font-semibold">
                 {post.user_name}
               </div>
             </div>

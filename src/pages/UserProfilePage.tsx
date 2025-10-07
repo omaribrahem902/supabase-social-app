@@ -5,7 +5,7 @@ export const UserProfilePage = ()=>{
   const {id} = useParams<{id:string|undefined}>();
   return(
       <div>
-          <UserProfileDisplay userId={id || ""}/>
+          <UserProfileDisplay profileId={id || ""}/>
       </div>
   )
 }

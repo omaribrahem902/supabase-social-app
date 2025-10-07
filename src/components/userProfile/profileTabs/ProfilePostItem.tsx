@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 
 
-export const UserPostItem = ({ post }: { post: { id: number; title: string; content: string; created_at: string } }) => {
+export const ProfilePostItem = ({ post }: { post: { id: number; title: string; content: string; created_at: string } }) => {
     return (
       <Link to={`/post/${post.id}`} className="">
         <div className="bg-gray-50 border border-gray-100 rounded-lg p-4">

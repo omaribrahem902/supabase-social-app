@@ -1,7 +1,8 @@
 export const TabsNav = ({ activeTab, onChange }: { activeTab: string; onChange: (t: any) => void }) => {
-    const tabs: { key: 'posts' | 'communities'; label: string }[] = [
+    const tabs: { key: 'posts' | 'communities' | 'following'; label: string }[] = [
       { key: 'posts', label: 'Posts' },
       { key: 'communities', label: 'Communities' },
+      { key: 'following', label: 'Following' },
     ];
   
     return (

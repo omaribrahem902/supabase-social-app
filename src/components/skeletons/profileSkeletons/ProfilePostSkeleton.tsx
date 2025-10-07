@@ -1,4 +1,4 @@
-export const UserPostSkeleton = () => {
+export const ProfilePostSkeleton = () => {
     return (
         <div className="animate-pulse flex flex-col gap-2 w-full p-4 border border-gray-300 rounded-[10px] shadow-sm">
             {/* Title */}
