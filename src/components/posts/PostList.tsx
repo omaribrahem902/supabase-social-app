@@ -11,7 +11,6 @@ import type { Post } from "../../Interfaces";
 
 const LIMIT = 8;
 
-// type-safe fetch function
 const fetchPosts = async ({ pageParam = 0 }: { pageParam?: number }): Promise<Post[]> => {
   const from = pageParam * LIMIT;
   const to = from + LIMIT - 1;

@@ -1,8 +1,8 @@
 import { Link } from "react-router";
-import type { Post } from "../../Interfaces";
+import type { Post , TrendingPost } from "../../Interfaces";
 
 interface Props {
-  post: Post;
+  post: Post | TrendingPost;
 }
 
 export const PostItem = ({ post }: Props) => {

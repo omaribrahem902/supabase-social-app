@@ -7,7 +7,7 @@ import {searchStore} from "../components/globalStates/global_state"
 export const Home = () => {
     const searchPostResults = searchStore((state) => state.searchPostResults);
     return (
-        <div className="">
+        <div>
             <div>
                 <SearchBar type="posts"/>
                 <div className="flex flex-wrap gap-6 justify-center">
@@ -16,7 +16,7 @@ export const Home = () => {
                         <PostItem post={post} key={post.id} />
                     ))
                 ) : (
-                    <PostList />
+                    <PostList/>
                 )}
                 </div>
             </div>

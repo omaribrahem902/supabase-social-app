@@ -8,6 +8,7 @@ import { CreateCommunityPage } from './pages/CreateCommunityPage'
 import { CommunitiesPage } from './pages/CommunitiesPage'
 import { CommunityPage } from './pages/CommunityPage'
 import { UserProfilePage } from './pages/UserProfilePage'
+import { TrendingPage } from './pages/TrendingPage'
 function App() {
   return (
     <div>
@@ -21,6 +22,7 @@ function App() {
           <Route path="/communities" element={<CommunitiesPage />} />
           <Route path="/communities/:id" element={<CommunityPage />} />
           <Route path="/profile/:id" element={<UserProfilePage/>} />
+          <Route path="/trending" element={<TrendingPage/>} />
         </Routes>
       </div>
     </div>

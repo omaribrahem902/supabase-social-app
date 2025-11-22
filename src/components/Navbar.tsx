@@ -73,6 +73,12 @@ export const Navbar = () => {
             >
               Create Community
             </Link>
+            <Link
+              to="/trending"
+              className="text-gray-300 hover:text-white transition-colors"
+            >
+              Trending
+            </Link>
 
           
           </div>
@@ -196,6 +202,13 @@ export const Navbar = () => {
               onClick={()=>setMenuOpen(false)}
             >
               Create Community
+            </Link>
+            <Link
+              to="/trending"
+              className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700"
+              onClick={()=>setMenuOpen(false)}
+            >
+              Trending
             </Link>
             {user && (<button className="text-[14px] bg-red-600 hover:bg-red-700 rounded-md ml-3 my-2 py-1 px-3 cursor-pointer" onClick={signOut}>SignOut</button>)}
           </div>

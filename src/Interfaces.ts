@@ -11,6 +11,10 @@ export interface Post {
     user_name: string | null;
 }
 
+export interface TrendingPost extends Post {
+  engagement_count: number;
+}
+
 export interface Community {
   id: number;
   created_at: string;
