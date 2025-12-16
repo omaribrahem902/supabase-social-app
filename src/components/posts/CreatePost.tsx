@@ -109,11 +109,23 @@ export const CreatePost = () => {
     setCommunityId(value ? Number(value) : null);
   }, []);
 
-  const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      setSelectedFile(e.target.files[0]);
+const MAX_FILE_SIZE_MB = 2;
+const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+  if (e.target.files && e.target.files[0]) {
+    const file = e.target.files[0];
+    const fileSizeMB = file.size / 1024 / 1024;
+
+    if (fileSizeMB > MAX_FILE_SIZE_MB) {
+      toast.error(`Image size must be less than 2MB  ${MAX_FILE_SIZE_MB}MB`);
+      e.target.value = '';   
+      setSelectedFile(null);
+      return;
     }
-  }, []);
+
+    setSelectedFile(file);
+  }
+}, []);
+
 
   return (
     <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-4">

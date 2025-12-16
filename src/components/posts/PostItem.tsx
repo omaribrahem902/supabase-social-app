@@ -37,7 +37,10 @@ export const PostItem = ({ post }: Props) => {
             <img
               src={post.image_url}
               alt={post.title}
-              className="w-full rounded-[20px] object-cover max-h-[185px] mx-auto "
+              className="rounded-[20px] object-cover max-h-[185px] mx-auto "
+              loading="lazy"
+              width="278"
+              height="185"
             />
           </div>
           <div className="flex justify-around items-center">
