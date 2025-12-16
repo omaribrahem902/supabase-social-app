@@ -8,7 +8,7 @@ import { ErrorPage } from "./ErrorPage";
 
 export const getTopPostsLast24h = async (): Promise<TrendingPost[]> => {
   const { data, error } = await supabase.rpc("get_top_posts_last_24h", {
-    limit_count: 8,
+    limit_count: 12,
   });
   if (error) throw new Error(error.message);
   return data as TrendingPost[];
