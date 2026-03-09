@@ -32,9 +32,9 @@ export const SuggestedSidebar = ({profileId, profileBio}: {profileId: string, pr
  
   return (
     <aside>
-      <div className="bg-white  rounded-2xl p-4 shadow-sm">
+      <div className="bg-[#0b1120] border border-gray-600 rounded-2xl p-4 shadow-sm">
         <h4 className="font-semibold mb-3">Suggested Users</h4>
-        {data?.length === 0 ?  (<p>No suggested profiles. Edit profile to get suggestions.</p>):(
+        {data?.length === 0 ?  (<p className="text-gray-400">No suggested profiles. Edit profile to get suggestions.</p>):(
           <div className="space-y-3">
           {data?.map((profile) => (
             <SuggestedItem key={profile.id} profile={profile} />

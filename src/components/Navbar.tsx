@@ -4,6 +4,16 @@ import { useAuth } from "../context/AuthContext";
 import toast, { Toaster } from "react-hot-toast";
 import { profileStore, profileCompletionStore } from "./userProfile/userProfileStore";
 
+const social = ["S","o","c","i","a","l"];
+const app = [".","a","p","p"];
+const links = [
+  {name:"Home",path:"/"},
+  {name:"Create Post",path:"/create"},
+  {name:"Community",path:"/communities"},
+  {name:"Create Community",path:"/community/create"},
+  {name:"Trendings",path:"/trending"},
+];
+
 export const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
   const [email, setEmail] = useState<string>("");
@@ -39,61 +49,40 @@ export const Navbar = () => {
   };
   
   return (
-    <nav className="fixed top-0 w-full z-40 bg-[rgba(10,10,10,0.8)] backdrop-blur-lg border-b border-white/10 shadow-lg">
+    <nav className="fixed top-0 w-[99%] mt-1 ml-0.5  border border-purple-400 rounded-2xl z-40 bg-[rgba(256,256,256,0.1)] backdrop-blur-lg border-b shadow-lg">
       <Toaster/>
-      <div className="max-w-5xl mx-auto px-4">
-        <div className="relative flex justify-between items-center h-16">
-          <Link to="/" className="font-mono text-xl font-bold text-white">
-            social<span className="text-purple-500">.app</span>
+      <div className=" px-4">
+        <div className="relative flex justify-between items-center h-16 ">
+          <Link to="/" className="font-mono text-2xl  font-bold text-white">
+            {social.map((char, index) => (
+              <span key={index} className="text-purple-500 hover:text-white">{char}</span>
+            ))}
+            
+            {app.map((char, index) => (
+              <span key={index} className="text-white hover:text-purple-500">{char}</span>
+            ))}
           </Link>
 
           {/* Desktop Links */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link
-              to="/"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              Home
-            </Link>
-            <Link
-              to="/create"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              Create Post
-            </Link>
-            <Link
-              to="/communities"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              Communities
-            </Link>
-            <Link
-              to="/community/create"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              Create Community
-            </Link>
-            <Link
-              to="/trending"
-              className="text-gray-300 hover:text-white transition-colors"
-            >
-              Trending
-            </Link>
+            {links.map((link,index)=>(
+              <Link key={index} to={link.path} className="text-white hover:shadow-xl hover:shadow-purple-500/50">{link.name}</Link>
+            ))}
 
           
           </div>
           {/* Desktop Auth */}
           <div className="text-white text-[12px] ">
             {user? (
-              <div className="flex gap-2 lg:gap-4 cursor-pointer">
-                <Link className="relative flex items-center gap-2" to={`/profile/${user.id}`}>
+              <div className="flex items-center gap-2 lg:gap-4 cursor-pointer">
+                <Link className="relative flex items-center gap-2 py-2 px-3 rounded-full bg-gray-700" to={`/profile/${user.id}`}>
                   {profile?.avatar_url &&<img className="rounded-full w-7 h-7" src={profile.avatar_url} alt="avatar image" />}
                   <span className="flex items-center">{displayName || user.email}</span>
                   {profileCompletion < 100 ? (
                     <span className="absolute w-3 h-3 -left-1 -top-[2px] bg-red-600 rounded-full"></span>
                   ) : null}
                 </Link>
-                <button className="hidden md:block bg-red-600 hover:bg-red-700 rounded-md py-1 px-3 cursor-pointer" onClick={signOut}>SignOut</button>
+                <button className="h-fit hidden md:block bg-red-600 hover:bg-red-700 rounded-md py-1 px-3 cursor-pointer" onClick={signOut}>SignOut</button>
               </div>
             ):(
               <div className="flex gap-2 lg:gap-4">

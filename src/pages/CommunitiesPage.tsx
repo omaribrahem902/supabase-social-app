@@ -1,5 +1,4 @@
 import { CommunityList } from "../components/communities/CommunityList"
-import { SearchBar } from "../components/SearchBar"
 import { searchStore } from "../components/globalStates/global_state"
 import { CommunityItem } from "../components/communities/CommunityItem"
 import type { Community } from "../Interfaces"
@@ -22,12 +21,11 @@ export const CommunitiesPage = ()=>{
         .delete()
         .eq("id", communityId);
       if (error) throw new Error(error.message);
-      queryClient.invalidateQueries({ queryKey: ["Communities"] }); // refresh the communities query
+      queryClient.invalidateQueries({ queryKey: ["Communities"] }); // refresh communities query
     }
     
     return(
-        <div>
-            <SearchBar type="communities"/>
+        <div>  
             <div className="max-w-5xl mx-auto space-y-4">
                 {searchCommunityResults.length > 0 ? (
                     searchCommunityResults.map((community:Community) => (

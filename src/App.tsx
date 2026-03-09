@@ -11,7 +11,7 @@ import { UserProfilePage } from './pages/UserProfilePage'
 import { TrendingPage } from './pages/TrendingPage'
 function App() {
   return (
-    <div>
+    <div className='bg-[#0F172A] text-white relative overflow-x-hidden'>
       <Navbar/>
       <div className='mt-24 mx-4 lg:x-20'>
         <Routes>

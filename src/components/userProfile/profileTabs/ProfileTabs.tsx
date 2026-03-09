@@ -10,7 +10,7 @@ export const ProfileTabs = ({profileId}: {profileId: string}) => {
         setActiveTab(tab);
     }
     return (
-        <div className="bg-white rounded-2xl p-4 shadow-sm">
+        <div className="rounded-2xl p-4 shadow-sm">
          <TabsNav activeTab={activeTab} onChange={handleTabChange} />
          <div className="mt-4 space-y-4">
           {activeTab === 'posts' && (

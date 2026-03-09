@@ -12,7 +12,7 @@ export const TabsNav = ({ activeTab, onChange }: { activeTab: string; onChange: 
             <li key={t.key}>
               <button
                 onClick={() => onChange(t.key)}
-                className={`pb-2 text-sm font-medium cursor-pointer ${activeTab === t.key ? 'text-gray-900 border-b-2 border-blue-600' : 'text-gray-500'}`}
+                className={`pb-2 text-sm font-medium cursor-pointer ${activeTab === t.key ? 'text-white border-b-2 border-purple-600' : 'text-gray-500'}`}
               >
                 {t.label}
               </button>

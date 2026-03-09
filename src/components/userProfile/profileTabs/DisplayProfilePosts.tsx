@@ -23,8 +23,8 @@ export const DisplayUserPosts = ({profileId}: Props) => {
     })
     if(isLoading){
         return(
-            <div className="flex flex-col gap-3 justify-center">
-                {Array.from({ length: 3 }).map((_, i) => (
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 justify-center">
+                {Array.from({ length: 6 }).map((_, i) => (
                     <ProfilePostSkeleton key={i} />
                 ))}
             </div>
@@ -36,7 +36,7 @@ export const DisplayUserPosts = ({profileId}: Props) => {
     return(
         <>
         {posts?.length === 0 ? (<p>Not created any posts yet</p>):(
-            <div className="flex flex-col gap-2">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {posts?.map((p: Post) => (
                 <ProfilePostItem key={p.id} post={p} />
             ))}

@@ -128,78 +128,98 @@ const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
 
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-4">
-      {/* Title */}
-      <div>
-        <label htmlFor="title" className="block mb-2 font-medium">
-          Title
-        </label>
-        <input
-          type="text"
-          id="title"
-          autoFocus
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          className="w-full border border-gray-300 bg-transparent p-2 rounded"
-          required
-        />
+  <div className="min-h-screen flex items-center justify-center bg-[#0B1120] px-2 lg:px-4">
+    <form
+      onSubmit={handleSubmit}
+      className="w-full max-w-2xl relative rounded-3xl p-[1px] bg-gradient-to-br from-purple-500/40 via-cyan-400/30 to-blue-500/40"
+    >
+      {/* Glass Card */}
+      <div className="rounded-xl lg:rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 p-4 lg:p-8 space-y-6 shadow-2xl">
+
+        {/* Header */}
+        <div className="text-center space-y-2">
+          <h2 className="text-xl lg:text-3xl font-bold text-white">
+            Create something amazing ✨
+          </h2>
+          <p className="text-gray-400 text-sm">
+            Share your thoughts, media, and inspiration with your community.
+          </p>
+        </div>
+
+        {/* Title */}
+        <div>
+          <input
+            type="text"
+            placeholder="Give your post a compelling title..."
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full bg-transparent border-b border-white/20 text-white placeholder-gray-400 py-2 focus:outline-none focus:border-purple-400 transition"
+            required
+          />
+        </div>
+
+        {/* Content */}
+        <div>
+          <textarea
+            placeholder="Write your content here..."
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            rows={6}
+            className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none"
+            required
+          />
+        </div>
+
+        {/* Image Upload */}
+        <div className="border-2 border-dashed border-white/20 rounded-xl p-2 lg:p-6 text-center hover:border-purple-400 transition">
+          <label
+            htmlFor="image"
+            className="cursor-pointer text-[12px] lg:text-[16px] text-gray-400 hover:text-white transition"
+          >
+            Click to upload an image.
+          </label>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            required
+            onChange={handleFileChange}
+            className="hidden"
+          />
+        </div>
+
+        {/* Community Select */}
+        <div>
+          <select
+            onChange={handleCommunityChange}
+            className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500"
+          >
+            <option className='bg-[#0F172A]' value="">-- Choose a Community --</option>
+            {communities?.map((community) => (
+              <option className='bg-[#0F172A]' key={community.id} value={community.id}>
+                {community.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Footer Buttons */}
+        <div className="flex items-center justify-end pt-4">
+          <div className="flex gap-3">
+            <button
+              type="submit"
+              disabled={isPending}
+              className="px-2 lg:px-6 py-1 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 text-white text-[12px] lg:text-[16px] hover:opacity-90 transition disabled:opacity-50 cursor-pointer"
+            >
+              {isPending ? "Publishing..." : "Publish Post"}
+            </button>
+          </div>
+        </div>
+
       </div>
 
-      {/* Content */}
-      <div>
-        <label htmlFor="content" className="block mb-2 font-medium">
-          Content
-        </label>
-        <textarea
-          id="content"
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className="w-full border border-gray-300 bg-transparent p-2 rounded"
-          rows={5}
-          required
-        />
-      </div>
-
-      {/* Communities */}
-      <div>
-        <label>Select Community</label>
-        <select id="community" onChange={handleCommunityChange}>
-          <option value={""}> -- Choose a Community -- </option>
-          {communities?.map((community, key) => (
-            <option key={key} value={community.id}>
-              {community.name}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* Image Upload */}
-      <div>
-        <label
-          htmlFor="image"
-          className="block mb-2 font-medium cursor-pointer"
-        >
-          Upload Image
-        </label>
-        <input
-          type="file"
-          id="image"
-          accept="image/*"
-          required
-          onChange={handleFileChange}
-          className="w-fit text-gray-400 cursor-pointer"
-        />
-      </div>
-
-      {/* Submit Button */}
-      <button
-        type="submit"
-        className="text-[12px] lg:text-[16px] flex justify-center bg-purple-500 disabled:bg-purple-200 text-white px-4 py-2 rounded disabled:cursor-not-allowed cursor-pointer"
-        disabled={isPending}
-      >
-        Create Post
-      </button>
-      <Toaster/>
+      <Toaster />
     </form>
-  );
+  </div>
+);
 };

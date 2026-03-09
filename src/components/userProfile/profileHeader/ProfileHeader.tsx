@@ -57,8 +57,8 @@ export const ProfileHeader = ({ profile }: Props) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm">
-      <div className="flex flex-col md:flex-row gap-6">
+    <div className="bg-[#0b1120] text-white rounded-2xl p-6 shadow-sm">
+      <div className="flex flex-col justify-center items-center md:flex-row gap-6">
         <div className="flex-shrink-0">
           {profile?.avatar_url ? (
             <img
@@ -73,7 +73,7 @@ export const ProfileHeader = ({ profile }: Props) => {
 
         <div className="flex-1">
           <h2 className="text-2xl font-semibold">{profile?.name}</h2>
-          <p className="mt-3 text-sm text-gray-700">{profile?.bio}</p>
+          <p className="text-center lg:text-left mt-3 text-sm ">{profile?.bio}</p>
         </div>
 
         <div className="flex flex-col justify-between gap-2 md:gap-0">
@@ -82,7 +82,7 @@ export const ProfileHeader = ({ profile }: Props) => {
               onClick={handleEditBtnClick}
               className={`${
                 isEditProfileOpen ? "opacity-0" : "block"
-              } relative px-4 py-2 rounded-lg border border-gray-300 bg-white hover:bg-gray-100 shadow text-sm cursor-pointer`}
+              } relative px-4 py-2 rounded-lg border border-gray-600 hover:border-gray-400 bg-[#0b1120] hover:bg-black shadow text-sm cursor-pointer`}
             >
               {profileCompletion < 100 ? (
                 <span className="absolute w-3 h-3 -left-1.5 -top-1.5 bg-red-600 rounded-full"></span>

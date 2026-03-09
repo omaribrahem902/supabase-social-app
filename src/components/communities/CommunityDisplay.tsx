@@ -31,10 +31,12 @@ export const CommunityDisplay = ({communityId}:Props)=>{
     
       if (isLoading) {
         return (
+          <div className="min-h-screen">
           <div className="flex flex-wrap gap-6 justify-center">
             {Array.from({ length: 4 }).map((_, i) => (
               <PostSkeleton key={i} />
             ))}
+          </div>
           </div>
         );
       }
@@ -44,9 +46,9 @@ export const CommunityDisplay = ({communityId}:Props)=>{
       }
 
     return(
-    <div>
-      <h2 className="text-2xl lg:text-6xl font-bold mb-6 text-center bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-        {data && data.length > 0 && data[0].Communities.name} Community Posts
+    <div className="min-h-screen">
+      <h2 className="text-2xl lg:text-6xl font-bold mb-6 text-center bg-gradient-to-r bg-clip-text text-transparent">
+        {data && data.length > 0 && data[0].Communities.name} Posts
       </h2>
 
       {data && data.length > 0 ? (

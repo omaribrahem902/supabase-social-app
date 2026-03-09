@@ -34,7 +34,14 @@ export const SearchBar = ({type}:SearchBarProps) => {
     }
     return (
         <div className="flex justify-center items-center">
-            <div className="flex items-center gap-2 border border-gray-300 bg-transparent mb-4 p-2 rounded-full">
+            <div className=" mb-4 p-2 flex items-center gap-3 
+                  w-full max-w-2xl 
+                  bg-white/10 
+                  backdrop-blur-xl
+                  border border-white/10 
+                  rounded-full 
+                  px-4 py-2 lg:px-6 lg:py-4
+                  shadow-inner">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" role="img" aria-label="Search">
                     <title>Search</title>
                     <circle cx="11" cy="11" r="7"></circle>
@@ -52,7 +59,7 @@ export const SearchBar = ({type}:SearchBarProps) => {
               onKeyDown={(e) => {if(e.key === "Enter") {
                 handleSearch();
               }}}
-              type="text" placeholder={`Search ${type}...`} className=" w-[200px] lg:w-[500px] outline-none" />
+              type="text" placeholder={`Search ${type}...`} className=" w-[200px] lg:w-[500px] outline-none bg-transparent" />
             </div>
         </div>
     );

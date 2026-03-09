@@ -7,7 +7,7 @@ import type { Profile } from "../../Interfaces";
 import { getPublicProfile } from "./userProfileStore";
 import { ErrorPage } from '../../pages/ErrorPage';
 import { useAuth } from '../../context/AuthContext';
-
+import SpinnerLoader from '../SpinnerLoader';
 interface Props{
   profileId: string;
 }
@@ -20,7 +20,12 @@ export const UserProfileDisplay = ({profileId}: Props) => {
   });
   
   if(isLoading){
-    return(<></>)
+    return(
+      <div className='min-h-screen flex justify-center items-center'>
+
+        <SpinnerLoader  />
+      </div>
+    )
   }
   if(error){
     return (
@@ -28,7 +33,7 @@ export const UserProfileDisplay = ({profileId}: Props) => {
     );
   }
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
+    <div className="min-h-screen bg-[#0B1120] text-white">
       <div className={`max-w-6xl mx-auto grid grid-cols-1 ${user?.id === profileId ? "lg:grid-cols-3" : "lg:grid-cols-2"} gap-6`}>
         {/* Main column */}
         <div className="lg:col-span-2 space-y-6">

@@ -53,7 +53,7 @@ export const PostList = () => {
 
   if (isLoading) {
     return (
-      <div className="flex flex-wrap gap-6 justify-center">
+      <div className="contents">
         {Array.from({ length: 8 }).map((_, i) => (
           <PostSkeleton key={i} />
         ))}

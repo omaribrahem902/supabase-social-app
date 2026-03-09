@@ -5,6 +5,7 @@ import { useMutation } from "@tanstack/react-query";
 import { useAuth } from '../../../context/AuthContext'; 
 import toast from 'react-hot-toast'; 
 import { editProfileStore, profileCompletionStore } from "../userProfileStore"; 
+import { Upload } from 'lucide-react';
 
 interface EditProfileInput { 
   name: string; 
@@ -105,8 +106,8 @@ export const EditProfile = () => {
   }; 
 
   return ( 
-    <aside className="sticky top-[500px]">
-      <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm">
+    <aside className="bg-[#0b1120] sticky top-[500px]">
+      <div className="bg-[#0b1120] border border-gray-600 dark:bg-gray-800 rounded-2xl p-4 shadow-sm">
         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-3">
           <div>
             <label htmlFor="NameDesktop" className="block mb-1 font-medium">
@@ -117,7 +118,7 @@ export const EditProfile = () => {
               id="NameDesktop"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full h-8 border border-gray-300 bg-transparent p-2 rounded"
+              className="w-full h-8 border border-gray-500 bg-transparent p-2 rounded"
               required
             />
           </div>
@@ -130,7 +131,7 @@ export const EditProfile = () => {
               id="bioDesktop"
               value={bio}
               onChange={(e) => setBio(e.target.value)}
-              className="w-full border border-gray-300 bg-transparent p-2 rounded"
+              className="w-full border border-gray-500 bg-transparent p-2 rounded"
               rows={2}
             />
           </div>
@@ -138,9 +139,9 @@ export const EditProfile = () => {
           <div>
             <label
               htmlFor="imageDesktop"
-              className="block font-medium cursor-pointer"
+              className="flex items-center gap-2 font-medium cursor-pointer"
             >
-              Upload Image
+              Upload Image <Upload color="white" strokeWidth={1.25} />
             </label>
             <input
               type="file"
@@ -155,7 +156,7 @@ export const EditProfile = () => {
             <button
               type="button"
               onClick={() => setIsEditProfileOpen(false)}
-              className="bg-gray-200 px-4 py-2 rounded cursor-pointer"
+              className="bg-gray-500 hover:bg-gray-600 px-4 py-2 rounded cursor-pointer"
             >
               Cancel
             </button>

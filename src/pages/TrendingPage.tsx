@@ -22,10 +22,12 @@ export const TrendingPage = () => {
 
   if (isLoading) {
     return (
+      <div className="min-h-screen">
       <div className="flex flex-wrap gap-6 justify-center">
         {Array.from({ length: 4 }).map((_, i) => (
           <PostSkeleton key={i} />
         ))}
+      </div>
       </div>
     );
   }
@@ -35,18 +37,20 @@ export const TrendingPage = () => {
   }
 
   return (
-    <div>
-      <div>
+    <div className="min-h-screen">
+      
         <SearchBar type="posts" />
-        <div className="flex flex-wrap gap-6 justify-center">
+        <div className="flex justify-center">
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-4">
           {data?.length ?(
           data?.map((post: TrendingPost) => <PostItem post={post} key={post.id} />)
           ):(
-            <p>No trending posts found</p>
+            <> </>
           )
           }
+          </div>
         </div>
-      </div>
+          <h1 className="text-center text-lg lg:text-2xl capitalize">No trending posts found try again later</h1>
     </div>
   );
 };

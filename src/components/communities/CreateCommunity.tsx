@@ -57,46 +57,79 @@ export const CreateCommunity = ()=>{
       }
     );    
   };
-    return(
-         <form onSubmit={handleSubmit} className="max-w-2xl mx-auto space-y-4">
-      <h2 className="text-3xl lg:text-6xl font-bold mb-6 text-center bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-        Create New Community
-      </h2>
-      <div>
-        <label htmlFor="name" className="block mb-2 font-medium">
-          Community Name
-        </label>
-        <input
-          type="text"
-          id="name"
-          autoFocus
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="w-full border border-gray-400 bg-transparent p-2 rounded"
-          required
-        />
+    return (
+  <div className="h-screen flex items-start justify-center bg-[#0B1120] px-4">
+
+    <form
+      onSubmit={handleSubmit}
+      className="w-full max-w-2xl relative rounded-3xl p-[1px] bg-gradient-to-br from-purple-500/40 via-blue-500/30 to-cyan-400/40"
+    >
+      {/* Glass Card */}
+      <div className="rounded-xl lg:rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 p-4 space-y-6 shadow-2xl">
+
+        {/* Header */}
+        <div className="text-center space-y-2">
+          <h2 className="text-xl lg:text-3xl font-bold text-white">
+            Create New Community ✨
+          </h2>
+          <p className="text-gray-400 text-sm">
+            Build your own space and start growing your audience.
+          </p>
+        </div>
+
+        {/* Community Name */}
+        <div className="space-y-2">
+          <label className="text-sm text-gray-300">
+            Community Name
+          </label>
+
+          <input
+            type="text"
+            value={name}
+            autoFocus
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter community name..."
+            className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 transition"
+            required
+          />
+        </div>
+
+        {/* Description */}
+        <div className="space-y-2">
+          <label className="text-sm text-gray-300">
+            Description
+          </label>
+
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Describe your community..."
+            rows={4}
+            className="w-full bg-white/5 border border-white/10 rounded-xl p-3 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 resize-none transition"
+          />
+        </div>
+
+        {/* Footer */}
+        <div className="flex justify-end pt-4">
+          <button
+            type="submit"
+            disabled={isPending}
+            className="lg:w-auto px-2  lg:px-6 py-1 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 text-white text-sm lg:text-base font-medium hover:opacity-90 transition disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
+          >
+            {isPending ? "Creating..." : "Create Community"}
+          </button>
+        </div>
+
+        {isError && (
+          <p className="text-red-400 text-sm text-center">
+            Error creating community.
+          </p>
+        )}
+
       </div>
-      <div>
-        <label htmlFor="description" className="block mb-2 font-medium">
-          Description
-        </label>
-        <textarea
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          className="w-full border border-gray-400 bg-transparent p-2 rounded"
-          rows={3}
-        />
-      </div>
-      <button
-        type="submit"
-        className="bg-purple-500 disabled:bg-purple-200 text-white px-4 py-2 rounded disabled:cursor-not-allowed cursor-pointer"
-        disabled={isPending}
-      >
-        Create Community
-      </button>
-      <Toaster/>
-      {isError && <p className="text-red-500">Error creating community.</p>}
+
+      <Toaster />
     </form>
-    )
+  </div>
+);
 }

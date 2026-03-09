@@ -5,12 +5,36 @@ interface Props {
   post: Post | TrendingPost;
 }
 
+const formatCustom12Hour = (dateString: string) => {
+  const date = new Date(dateString);
+
+  const day = date.getDate();
+  const month = date.toLocaleString("en-US", { month: "short" });
+  const year = date.getFullYear();
+
+  let hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12;
+
+  return `${day} ${month} ${year} - ${hours}:${minutes} ${ampm}`;
+};
+
 export const PostItem = ({ post }: Props) => {
   return (
-    <div className="relative group min-h-[338px]">
-      <div className="absolute -inset-1 rounded-[20px] bg-gradient-to-r from-pink-600 to-purple-600 blur-sm opacity-0 group-hover:opacity-50 transition duration-300 pointer-events-none"></div>
-      <div className="block relative z-10">
-        <div className="w-80 h-[338px] bg-[rgb(24,27,32)] border border-[rgb(84,90,106)] rounded-[20px] text-white flex flex-col p-5 overflow-hidden transition-colors duration-300 group-hover:bg-gray-800">
+    <div className="w-80 relative group min-h-[338px]">
+      <div className="relative z-10">
+        <div className=" h-[338px] relative 
+            bg-white/5 
+            backdrop-blur-xl 
+            border border-white/10 
+            hover:border-[#8A2BE2]
+            hover: delay-100
+            hover: duration-300
+            rounded-2xl 
+            shadow-[0_0_30px_rgba(168,85,247,0.25)] 
+            p-6">
           {/* Header: Avatar and Title */}
           <Link to={`/profile/${post.user_id}`} className="flex items-center space-x-2">
           
@@ -27,6 +51,7 @@ export const PostItem = ({ post }: Props) => {
               <div className= "text-[12px] leading-[22px] font-semibold">
                 {post.user_name}
               </div>
+              <p className="text-[10px] text-gray-400 leading-[22px] font-semibold">{formatCustom12Hour(post.created_at)}</p>
             </div>
           </Link>
           <Link to={`/post/${post.id}`}>

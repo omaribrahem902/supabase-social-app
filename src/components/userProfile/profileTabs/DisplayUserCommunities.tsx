@@ -41,7 +41,7 @@ export const DisplayUserCommunities = ({profileId}: Props) => {
         return(
             <div className="flex flex-col gap-3 justify-center">
                 {Array.from({ length: 2 }).map((_, i) => (
-                    <CommunitySkeleton key={i} />
+                    <CommunitySkeleton count={2} key={i} />
                 ))}
             </div>
         )
@@ -55,7 +55,7 @@ export const DisplayUserCommunities = ({profileId}: Props) => {
           <p>Not created any communities yet</p>
         ) : (
           <div>
-            <div className="flex flex-col gap-2">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               {communities?.map((c: Community) => (
                 <CommunityItem key={c.id} community={c} />
               ))}

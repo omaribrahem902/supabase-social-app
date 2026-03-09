@@ -5,6 +5,7 @@ import { supabase } from "../../supabase-client";
 import { CommentItem } from "./CommentItem";
 import type { NewComment } from "../../Interfaces";
 import type { Comment } from "../../Interfaces";
+import { profileStore } from "../userProfile/userProfileStore";
 
 interface Props {
   postId: number;
@@ -46,6 +47,8 @@ export const CommentSection = ({ postId }: Props) => {
   const [newCommentText, setNewCommentText] = useState<string>("");
   const { user } = useAuth();
   const queryClient = useQueryClient();
+  const profile = profileStore((state) => state.profile);
+  
   const {
     data: comments,
     isLoading,
@@ -112,41 +115,68 @@ export const CommentSection = ({ postId }: Props) => {
   const commentTree = comments ? buildCommentTree(comments) : [];
 
   return (
-    <div className="mt-6">
-      <h3 className="text-2xl font-semibold mb-4">Comments</h3>
-      {/* Create Comment Section */}
-      {user ? (
-        <form onSubmit={handleSubmit} className="mb-4">
-          <textarea
-            value={newCommentText}
-            onChange={(e) => setNewCommentText(e.target.value)}
-            className="w-full border border-gray-300 bg-transparent p-2 rounded"
-            placeholder="Write a comment..."
-            rows={3}
-          />
-          <button
-            type="submit"
-            disabled={isPending}
-            className="mt-2 bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded cursor-pointer"
-          >
-            {isPending ? "Posting..." : "Comment"}
-          </button>
-          {isError && (
-            <p className="text-red-500 mt-2">Error posting comment.</p>
-          )}
-        </form>
-      ) : (
-        <p className="mb-4 text-gray-600">
-          You must be logged in to post a comment.
-        </p>
-      )}
+  <div className="space-y-6">
 
-      {/* Comments Display Section */}
-      <div className="space-y-4">
-        {commentTree.map((comment, key) => (
-          <CommentItem key={key} comment={comment} postId={postId} />
-        ))}
-      </div>
+    {/* ================= COMMENT INPUT ================= */}
+    {user ? (
+      <form onSubmit={handleSubmit}>
+
+        <div className="flex items-center gap-3 p-[1px] rounded-xl bg-gradient-to-r from-purple-500 to-blue-500">
+
+          <div className="flex items-center gap-1 lg:gap-3 bg-[#0F172A] rounded-xl w-full px-2 py-1 lg:px-3 lg:py-2">
+
+            {/* Avatar */}
+            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center font-semibold text-white">
+              {profile?.avatar_url &&<img className="rounded-full w-9 h-9" src={profile.avatar_url} alt="avatar image" />}
+            </div>
+
+            {/* Input */}
+            <input
+              type="text"
+              value={newCommentText}
+              onChange={(e) => setNewCommentText(e.target.value)}
+              placeholder="Write a comment..."
+              className="flex-1 bg-transparent outline-none text-sm lg:text-md text-white placeholder-gray-400"
+            />
+
+            {/* Button */}
+            <button
+              type="submit"
+              disabled={isPending}
+              className="lg:px-5 px-2 py-1 lg:py-2 rounded-full bg-gradient-to-r from-purple-600 to-blue-600 hover:opacity-90 transition text-xs lg:text-sm font-medium cursor-pointer"
+            >
+              {isPending ? "Posting..." : "Comment"}
+            </button>
+
+          </div>
+        </div>
+
+        {isError && (
+          <p className="text-red-500 mt-2">Error posting comment.</p>
+        )}
+
+      </form>
+    ) : (
+      <p className="text-gray-400">
+        You must be logged in to post a comment.
+      </p>
+    )}
+
+
+    {/* ================= COMMENTS LIST ================= */}
+    <div className="space-y-4">
+
+      {commentTree.map((comment) => (
+        <div
+          key={comment.id}
+          className="bg-[#111C2D] border border-white/5 rounded-xl px-2 py-1 lg:px-4 lg:py-2 shadow-md"
+        >
+          <CommentItem comment={comment} postId={postId} />
+        </div>
+      ))}
+
     </div>
-  );
+
+  </div>
+);
 };
