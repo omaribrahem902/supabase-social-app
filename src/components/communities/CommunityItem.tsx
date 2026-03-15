@@ -23,11 +23,6 @@ export const CommunityItem = ({ community }: { community: Community }) => {
 
         <p className="text-gray-400 text-sm">{community.description}</p>
 
-        <div className="flex justify-between text-sm text-gray-400 pt-2">
-          <span>👥 Members</span>
-          <span>📝 Posts</span>
-        </div>
-
         <Link
           to={`/communities/${community.id}`}
           className="block text-center w-full py-2 rounded-lg bg-gradient-to-r from-purple-500 to-blue-500 hover:opacity-90 transition"

@@ -26,6 +26,7 @@ export const CommunityList = () => {
 
   const totalCommunities = data?.length || 0;
 
+  console.log(data);
   if (isLoading) {
     return <CommunitySkeleton count={3}/>
   }
@@ -58,9 +59,9 @@ export const CommunityList = () => {
        <SearchBar type="communities"/>
 
         {/* Stats */}
-        <div className="grid md:grid-cols-2 gap-6">
-          <StatCard title="Total Communities" value={totalCommunities.toString()} icon={null} />
-          <StatCard title="Total Posts" value={"0"} icon={null} />
+        <div className="">
+          <StatCard title="Total Communities" value={totalCommunities.toString()} />
+          
         </div>
 
         {/* Communities Grid */}
@@ -85,21 +86,16 @@ export const CommunityList = () => {
 function StatCard({
   title,
   value,
-  icon,
 }: {
   title: string;
   value: string;
-  icon: React.ReactNode;
 }) {
   return (
     <div className="rounded-2xl p-[1px] bg-gradient-to-br from-purple-500/40 to-blue-500/40">
-      <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 flex items-center justify-between">
-        <div>
+      <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 flex items-center justify-center">
+        <div className="text-center">
           <p className="text-gray-400 text-sm">{title}</p>
           <h3 className="text-2xl font-bold mt-1">{value}</h3>
-        </div>
-        <div className="bg-purple-500/20 p-3 rounded-xl">
-          {icon}
         </div>
       </div>
     </div>
