@@ -176,7 +176,7 @@ const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
             htmlFor="image"
             className="cursor-pointer text-[12px] lg:text-[16px] text-gray-400 hover:text-white transition"
           >
-            Click to upload an image.
+            {selectedFile ? `Selected: ${selectedFile.name}` : "Click to upload an image (max 2MB)"}
           </label>
           <input
             type="file"
