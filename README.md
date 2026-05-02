@@ -1,3 +1,6 @@
+![Home Page](./screenshots/Home-page.png)
+![Profile Page](./screenshots/Profile-page.png)
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
