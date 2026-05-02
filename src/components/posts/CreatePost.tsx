@@ -101,7 +101,7 @@ export const CreatePost = () => {
         }
       );
     },
-    [title, content, selectedFile, communityId, user, mutate]
+    [selectedFile, mutate, title, content, profile?.avatar_url, profile?.id, profile?.name, communityId]
   );
 
   const handleCommunityChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
@@ -128,7 +128,7 @@ const handleFileChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
 
 
   return (
-  <div className="min-h-screen flex items-center justify-center bg-[#0B1120] px-2 lg:px-4">
+  <div className="min-h-screen flex items-center justify-center bg-[#0F172A] px-2 lg:px-4">
     <form
       onSubmit={handleSubmit}
       className="w-full max-w-2xl relative rounded-3xl p-[1px] bg-gradient-to-br from-purple-500/40 via-cyan-400/30 to-blue-500/40"

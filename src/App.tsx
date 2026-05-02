@@ -11,9 +11,9 @@ import { UserProfilePage } from './pages/UserProfilePage'
 import { TrendingPage } from './pages/TrendingPage'
 function App() {
   return (
-    <div className='bg-[#0F172A] text-white relative overflow-x-hidden'>
+    <div className='min-h-screen bg-[#0F172A] text-white relative overflow-x-hidden'>
       <Navbar/>
-      <div className='mt-24 mx-4 lg:x-20'>
+      <div className='mt-24 mx-4'>
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/create' element={<CreatePostPage/>} />

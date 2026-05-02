@@ -58,7 +58,7 @@ export const CreateCommunity = ()=>{
     );    
   };
     return (
-  <div className="h-screen flex items-start justify-center bg-[#0B1120] px-4">
+  <div className="h-screen flex items-start justify-center bg-[#0F172A] px-4">
 
     <form
       onSubmit={handleSubmit}

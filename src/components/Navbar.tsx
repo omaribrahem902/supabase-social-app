@@ -64,7 +64,7 @@ export const Navbar = () => {
           </Link>
 
           {/* Desktop Links */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-8">
             {links.map((link,index)=>(
               <Link key={index} to={link.path} className="text-white hover:shadow-xl hover:shadow-purple-500/50">{link.name}</Link>
             ))}
@@ -82,7 +82,7 @@ export const Navbar = () => {
                     <span className="absolute w-3 h-3 -left-1 -top-[2px] bg-red-600 rounded-full"></span>
                   ) : null}
                 </Link>
-                <button className="h-fit hidden md:block bg-red-600 hover:bg-red-700 rounded-md py-1 px-3 cursor-pointer" onClick={signOut}>SignOut</button>
+                <button className="h-fit hidden lg:block bg-red-600 hover:bg-red-700 rounded-md py-1 px-3 cursor-pointer" onClick={signOut}>SignOut</button>
               </div>
             ):(
               <div className="flex gap-2 lg:gap-4">
@@ -119,7 +119,7 @@ export const Navbar = () => {
 
 
           {/* Mobile Menu Button */}
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <button
               onClick={() => setMenuOpen((prev) => !prev)}
               className="text-gray-300 focus:outline-none"
@@ -157,7 +157,7 @@ export const Navbar = () => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-[rgba(10,10,10,0.9)]">
+        <div className="lg:hidden bg-[rgba(10,10,10,0.9)]">
           <div className="text-white px-2 pt-2 pb-3 space-y-1">
             {!user && (
               <div className="flex gap-2">
