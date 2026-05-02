@@ -1,73 +1,68 @@
+# Social Media App 🚀
 
+A modern social media platform built with Next.js, TypeScript, and Supabase.  
+Users can create posts, interact with others, and manage their profiles in real-time.
+
+## ✨ Features
+
+- 🔐 Authentication (Sign up / Login)
+- 📝 Create, edit, and delete posts and communities
+- ❤️ Like & comment system for posts
+- 👤 User profile statistics
+- ➕ Follow / unfollow users 
+- 🔍 Search for posts and communities by title (instant filtering)
+- 📈 View trending posts (based on activity in the last 24 hours)
+- 📱 Fully responsive design
+- ⚡ Real-time updates using Supabase
+
+## 🛠 Tech Stack
+
+- React
+- TypeScript
+- Supabase (Auth + Database)
+- Tailwind CSS
+- React Query
+- React Router
+- React hot toast
+- React intersection observer
+- Zustand state management
 
 <p align="center">
   <img src="./screenshots/Home-page.png" width="45%" />
-  <img src="./screenshots/Profile-page.png" width="45%" />
+  <img src="./screenshots/Communities-page.png" width="45%" />
 </p>
 <p align="center">
-  <img src="./screenshots/Home-page.png" width="45%" />
-  <img src="./screenshots/Profile-page.png" width="45%" />
+  <img src="./screenshots/Create-post-page.png" width="45%" />
+  <img src="./screenshots/Create-community-page.png" width="45%" />
 </p>
 <p align="center">
-  <img src="./screenshots/Home-page.png" width="45%" />
-  <img src="./screenshots/Profile-page.png" width="45%" />
+  <img src="./screenshots/details-page.png" width="45%" />
+  <img src="./screenshots/comment-section.png" width="45%" />
 </p>
 <p align="center">
-  <img src="./screenshots/Home-page.png" width="45%" />
+  <img src="./screenshots/Trendings-page.png" width="45%" />
   <img src="./screenshots/Profile-page.png" width="45%" />
 </p>
 
-# React + TypeScript + Vite
+## 🌍 Live Demo
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+👉 https://supabase-social-app.vercel.app/
 
-Currently, two official plugins are available:
+## ⚙️ Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+```bash
+git clone https://github.com/omaribrahem902/supabase-social-app.git
+cd SOCIAL-MEDIA-PROJECT
+npm install
+npm dev
 
-## Expanding the ESLint configuration
+## 🧠 Challenges & Learnings
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Handling real-time updates efficiently
+- Managing global state with React Query
+- Handling fetching large data via pagination
+- Structuring scalable frontend architecture
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 💼 Why This Project?
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+This project demonstrates my ability to build scalable frontend applications with real-time features and modern UI/UX.
