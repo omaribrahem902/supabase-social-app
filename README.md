@@ -27,6 +27,8 @@ Users can create posts, interact with others, and manage their profiles in real-
 - React intersection observer
 - Zustand state management
 
+## Some Screen Shots
+
 <p align="center">
   <img src="./screenshots/Home-page.png" width="45%" />
   <img src="./screenshots/Communities-page.png" width="45%" />
