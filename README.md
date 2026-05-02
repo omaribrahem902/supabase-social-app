@@ -1,5 +1,9 @@
-![Home Page](./screenshots/Home-page.png)
-![Profile Page](./screenshots/Profile-page.png)
+
+
+<p align="center">
+  <img src="./screenshots/Home-page.png" width="45%" />
+  <img src="./screenshots/Profile-page.png" width="45%" />
+</p>
 
 # React + TypeScript + Vite
 
