@@ -4,6 +4,18 @@
   <img src="./screenshots/Home-page.png" width="45%" />
   <img src="./screenshots/Profile-page.png" width="45%" />
 </p>
+<p align="center">
+  <img src="./screenshots/Home-page.png" width="45%" />
+  <img src="./screenshots/Profile-page.png" width="45%" />
+</p>
+<p align="center">
+  <img src="./screenshots/Home-page.png" width="45%" />
+  <img src="./screenshots/Profile-page.png" width="45%" />
+</p>
+<p align="center">
+  <img src="./screenshots/Home-page.png" width="45%" />
+  <img src="./screenshots/Profile-page.png" width="45%" />
+</p>
 
 # React + TypeScript + Vite
 
